@@ -368,3 +368,148 @@ Either core can set GCR_PM.mode to PDM, and the device immediately enters PDM.
 *Figure 4-7: PDM Clock and State Retention Block Diagram*
 
 ## Wake-Up Sources for Each Operating Mode
+In all operating modes other than ACTIVE, wake-up sources are required to re-enter ACTIVE operation. [Table 4-4](#table4-4-wakeup-sources-for-each-operating-mode-in-78000) shows available wake-up sources for each operating mode of the MAX78000.
+
+*Note: Each wake-up source must be enabled individually except for External Reset, which is hardware controlled.*
+
+*Table 4-4: Wake-Up Sources for Each Operating Mode in the MAX78000*
+<a name="table4-4-wakeup-sources-for-each-operating-mode-in-78000"></a>
+
+<table>
+    <tr>
+        <th>Operating Mode</th>
+        <th>Any Peripheral Interrupts</th>
+        <th>External Reset</th>
+        <th>RV32</th>
+        <th>CNN</th>
+        <th>CNN FIFO</th>
+        <th>SPI1</th>
+        <th>SPI0</th>
+        <th>Any Peripheral Interrupts</th>
+        <th>I2C</th>
+        <th>I2C2</th>
+        <th>I2C1</th>
+        <th>I2C0</th>
+        <th>LPUART0 (UART3)</th>
+        <th>UART2</th>
+        <th>UART1</th>
+        <th>UART0</th>
+        <th>LPUART0 (TMR5)</th>
+        <th>LPUART0 (TMR4)</th>
+        <th>TMR3</th>
+        <th>TMR2</th>
+        <th>TMR1</th>
+        <th>TMR0</th>
+        <th>LPWDT0 (WDT1)</th>
+        <th>WDT0</th>
+        <th>LPCOMP3</th>
+        <th>LPCOMP2</th>
+        <th>LPCOMP1</th>
+        <th>COMP0</th>
+        <th>RTC</th>
+        <th>WUT</th>
+        <th>GPIO3</th>
+        <th>GPIO2</th>
+        <th>GPIO1</th>
+        <th>GPIO0</th>
+    </tr>
+    <tr>
+        <td>SLEEP</td>
+        <td>x</td><td>x</td><td>x</td><td>x</td><td></td><td></td><td></td><td></td>
+        <td></td><td></td><td></td><td>x</td><td></td><td></td><td></td><td></td>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        <td></td><td></td><td></td><td>x</td><td></td><td></td><td>x</td>
+    </tr>
+    <tr>
+        <td>LPM</td>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        <td></td><td></td><td></td><td></td><td></td>
+    </tr>
+    <tr>
+        <td>UPM</td>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    </tr>
+    <tr>
+        <td>STANDBY</td>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    </tr>
+    <tr>
+        <td>BACKUP</td>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    </tr>
+    <tr>
+        <td>PDM</td>
+        <td></td><td></td>
+    </tr>
+</table>
+
+## Device Resets
+Four device resets are available:
+
+- Peripheral Reset
+- Soft Reset
+- System Reset
+- Power-On Reset
+
+On completion of any of the four reset cycles, all peripherals are reset. On completion of any reset cycle, HCLK and PCLK are operational, the CPU core receives clocks and power, and the device is in ACTIVE. Program execution begins at the reset vector address.
+
+The contents of the always-on domain (AoD) are reset only on power-cycling VCOREA, VCOREB, VDDA, VDDIOH, or VREGI.
+
+The on-chip peripherals can also be reset to their POR default state using the two reset registers, GCR_RST0 and GCR_RST1.
+
+[Table 4-5]() shows the effects of each reset type on each of the operating modes.
+
+*Table 4-5: Reset and Low-Power Mode Effects*
+
+### Peripheral Reset
+Peripheral reset resets all peripherals. The CPU retains its state. The GPIO, watchdog timers, AoD, RAM retention, and general control registers (GCR), including the clock configuration, are unaffected.
+
+To start a peripheral reset, set GCR_RST0.periph to 1. The reset is completed immediately upon setting GCR_RST0.periph to 1.
+
+### Soft Reset
+A soft reset is the same as a peripheral reset except that it also resets the GPIO to its POR state.
+
+To perform a soft reset, set GCR_RST0.soft to 1. The reset occurs immediately upon setting GCR_RST0.soft to 1.
+
+### System Reset
+A system reset is the same as a soft reset, except it also resets all GCR, resetting the clocks to their POR default state. The CPU state is reset, as well as the watchdog timers. The AoD and RAM are unaffected.
+
+A watchdog timer reset event initiates a system reset. To start a system reset, set GCR_RST0.sys to 1.
+
+### Power-On Reset
+A POR resets everything in the device to its default state. A POR results from V<sub>COREA</sub>, V<sub>COREB</sub>, V<sub>DDA</sub>, or V<sub>REGI</sub> falling below their reset voltage level. Refer to the MAX78000 data sheet for details of the reset voltage levels.
+
+## Unified Internal Cache Controllers
+The MAX78000 includes two unified internal cache controllers. ICC0 is the cache controller used for the CM4. ICC1, if enabled, is dedicated to the RV32 core. ICC1 uses sysram3 as the cache memory. If ICC1 is enabled, sysram3 is not accessible as SRAM (address range 0x2001 C000 to 0x2001 FFFF).
+
+Both caches, ICC0 and ICC1, include a line buffer, tag RAM, and a 16KB 2-way set associative RAM when enabled.
+
+### Enabling the Internal Cache Controllers
+Enabling ICC1 for use as the cache controller for the RV32 requires using *sysram3* as the cache memory.
+*Note: The contents of sysram3 are lost when ICC1 is enabled, and sysram3 is not accessible for data reads or writes as part of the memory map.*
+*Note: Before enabling ICC1 as a cache controller, sysram3 should be zeroized.*
+
+Perform the following steps to enable each ICC:
+
+1. Set the ICCn_CTRL.en to 0, ensuring the cache is invalidated when enabled.
+2. Set ICCn_CTRL.en to 1.
+3. Read ICCn_CTRL.rdy until it returns 1.
+4. Zeroize the ICC instance by setting GCR_MEMZ.icc0 or GCR_MEMZ.icc1 to 1.
+
+### Disabling the ICC
+Disable an ICC instance by setting ICCn_CTRL.en to 0.
+
+To use sysram3 as data RAM, first, disable the ICC1 instance as described above. When ICC1 is disabled, sysram3 is accessible as data RAM by both the CM4 and RV32 controllers unless sysram3 is configured for exclusive access by the RV32 core only.
+
+### Invalidating the ICC Cache and Tag RAM
+Invalidate the contents of a specific ICC instance by setting the ICCn_INVALIDATE register to 1. Once invalidated, the system flushes the cache. Read the ICCn_CTRL.rdy field until it returns 1 to determine when the flush is completed.
+
+### Flushing the ICC
+Flush ICC0 using the system configuration register (GCR_SYSCTRL). Set GCR_SYSCTRL.icc0_flush to 1 to immediately flush the contents of the 16KB cache and tag RAM.
+
+Flush ICC1 using the RV32 Control Register (FCR_URVCTRL). Set FCR_URVCTRL.icc1_flush to 1 to immediately flush the contents of the 16KB cache and tag RAM.
+
+### Internal Cache Control Registers (ICC)
