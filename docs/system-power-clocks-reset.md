@@ -513,3 +513,647 @@ Flush ICC0 using the system configuration register (GCR_SYSCTRL). Set GCR_SYSCTR
 Flush ICC1 using the RV32 Control Register (FCR_URVCTRL). Set FCR_URVCTRL.icc1_flush to 1 to immediately flush the contents of the 16KB cache and tag RAM.
 
 ### Internal Cache Control Registers (ICC)
+See Table 3-3 for the base address of this peripheral/module. See Table 1-1 for an explanation of the read and write access of each field. Unless specified otherwise, all fields are reset on a system reset, soft reset, POR, and the peripheral-specific resets.
+
+*Table 4-6: Instruction Cache Controller Register Summary*
+<a name="table4-6-instruction-cache-controller-register-summary"></a>
+
+<table border="1" cellpadding="5" cellspacing="0">
+  <tr style="background-color: #e0e0e0; font-weight: bold; text-align: center">
+    <th>Offset</th>
+    <th>Register</th>
+    <th>Name</th>
+  </tr>
+  <tr>
+    <td>[0x0000]</td>
+    <td><a href="#cache-id-register">ICCn_INFO</td>
+    <td>Cache ID Register</td>
+  </tr>
+  <tr>
+    <td>[0x0004]</td>
+    <td><a href="#cache-memory-size-register">ICCn_SZ</td>
+    <td>Cache Memory Size Register</td>
+  </tr>
+  <tr>
+    <td>[0x0100]</td>
+    <td><a href="#instruction-cache-control-register">ICCn_CTRL</td>
+    <td>Instruction Cache Control Register</td>
+  </tr>
+  <tr>
+    <td>[0x0700]</td>
+    <td><a href="#instruction-cache-controller-invalidate-register">ICCn_INVALIDATE</td>
+    <td>Instruction Cache Controller Invalidate Register</td>
+  </tr>
+</table>
+
+### ICC0 Register Details
+*Table 4-7: ICC0 Cache Information Register*
+<a name="icc0-cache-information-register"></a>
+
+<table border="1" cellpadding="5" cellspacing="0">
+   <tr style="background-color: #e0e0e0; font-weight: bold; text-align: center">
+       <td colspan="3">ICC0 Cache Information</td>
+       <td colspan="1">ICCn_INFO</td>
+       <td>[0x0000]</td>
+   </tr>
+   <tr>
+       <th>Bits</th>
+       <th>Name</th>
+       <th>Access</th>
+       <th>Reset</th>
+       <th>Description</th>
+   </tr>
+   <tr>
+       <td>31:16</td>
+       <td>-</td>
+       <td>RO</td>
+       <td>0</td>
+       <td><strong>Reserved</strong></td>
+   </tr>
+   <tr>
+       <td>15:10</td>
+       <td>id</td>
+       <td>R</td>
+       <td>-</td>
+       <td><strong>Cache ID</strong><br>This field returns the ID for the cache instance.</td>
+   </tr>
+      <tr>
+       <td>9:6</td>
+       <td>partnum</td>
+       <td>R</td>
+       <td>-</td>
+       <td><strong>Cache Part Number</strong><br>This field returns the part number indicator for the cache instance.</td>
+   </tr>
+         <tr>
+       <td>5:0</td>
+       <td>relnum</td>
+       <td>R</td>
+       <td>-</td>
+       <td><strong>Cache Release Number</strong><br>This field returns the release number for the cache instance.</td>
+   </tr>
+</table>
+
+*Table 4-8: ICC0 Memory Size Register*
+<a name="icc0-memory-size-register"></a>
+
+<table border="1" cellpadding="5" cellspacing="0">
+   <tr style="background-color: #e0e0e0; font-weight: bold; text-align: center">
+       <td colspan="3">ICC0 Memory Size</td>
+       <td colspan="1">ICCn_SZ</td>
+       <td>[0x0004]</td>
+   </tr>
+   <tr>
+       <th>Bits</th>
+       <th>Name</th>
+       <th>Access</th>
+       <th>Reset</th>
+       <th>Description</th>
+   </tr>
+   <tr>
+       <td>31:16</td>
+       <td>mem</td>
+       <td>R</td>
+       <td>-</td>
+       <td><strong>Addressable Memory Size</strong><br>This field indicates the size of addressable memory by the cache controller instance in 128KB units.</td>
+   </tr>
+   <tr>
+       <td>15:0</td>
+       <td>cch</td>
+       <td>R</td>
+       <td>-</td>
+       <td><strong>Cache Size</strong><br>This field returns the size of the cache RAM in 1KB units. <br> <div style="margin-left: 20px">16: 16KB Cache RAM</td>
+   </tr>
+</table>
+
+*Table 4-9: ICC0 Cache Control Register*
+<a name="icc0-cache-control-register"></a>
+
+<table border="1" cellpadding="5" cellspacing="0">
+   <tr style="background-color: #e0e0e0; font-weight: bold; text-align: center">
+       <td colspan="3">ICC0 Cache Control</td>
+       <td colspan="1">ICCn_CTRL</td>
+       <td>[0x0100]</td>
+   </tr>
+   <tr>
+       <th>Bits</th>
+       <th>Name</th>
+       <th>Access</th>
+       <th>Reset</th>
+       <th>Description</th>
+   </tr>
+   <tr>
+       <td>31:17</td>
+       <td>-</td>
+       <td>R/W</td>
+       <td>-</td>
+       <td><strong>Reserved</strong></td>
+   </tr>
+   <tr>
+       <td>16</td>
+       <td>rdy</td>
+       <td>R</td>
+       <td>-</td>
+       <td><strong>Ready</strong><br>This field is cleared by hardware anytime the cache as a whole is invalidated (including a POR). Hardware automatically sets this field to 1 when the invalidate operation is complete, and the cache is ready.<br>
+        <div style="margin-left: 20px">
+            <p>0: Cache invalidation in process.</p>
+            <p>1: Cache is ready.</p>
+        </div>
+        *Note: While this field reads 0, the cache is bypassed, and reads come directly from the line fill buffer.*
+   </tr>
+      <tr>
+       <td>15:1</td>
+       <td>-</td>
+       <td>R/W</td>
+       <td>-</td>
+       <td><strong>Reserved</strong></td>
+   </tr>
+      <tr>
+       <td>0</td>
+       <td>en</td>
+       <td>R/W</td>
+       <td>0</td>
+       <td><strong>Cache Enable</strong><br>Set this field to 1 to enable the cache. Setting this field to 0 invalidates the cache contents, and the line fill buffer handles all reads. <br>         
+       <div style="margin-left: 20px">
+            <p>0: Disable</p>
+            <p>1: Enable</p>
+        </div>
+   </tr>
+</table>
+
+*Table 4-10: ICC0 Invalidate Register*
+<a name="table4-10-icc0-invalidate-register"></a>
+
+<table border="1" cellpadding="5" cellspacing="0">
+  <tr style="background-color: #e0e0e0; font-weight: bold; text-align: center">
+    <td colspan="3">ICC0 Invalidate</td>
+    <td colspan="1">ICCn_INVALIDATE</td>
+    <td>[0x0700]</td>
+  </tr>
+  <tr>
+    <th>Bits</th>
+    <th>Name</th>
+    <th>Access</th>
+    <th>Reset</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>31:0</td>
+    <td>invalid</td>
+    <td>W</td>
+    <td>-</td>
+    <td><strong>Invalidate</strong><br>Writing any value to this register invalidates the cache.</td>
+  </tr>
+</table>
+
+## RAM Memory Management
+This device has many features for managing the on-chip RAM. The on-chip RAM includes the data RAM, the unified cache controllers (ICC0 and ICC1), the CNN RAM, and the peripheral FIFOs.
+
+### On-Chip Cache Management
+The MAX78000 includes two unified internal cache controllers for code and data fetches from the flash memory. The caches can be enabled, disabled, zeroized, and flushed. See section [Unified Internal Cache Controller]() for details.
+
+### RAM Zeroization
+The GCR memory zeroize register, GCR_MEMZ, allows clearing memory for software or security reasons. Zeroization writes all zeros to the specified memory.
+
+The following SRAM memories can be zeroized:
+
+- Each of the System RAMs can be individually zeroized by setting the respective GCR_MEMZ bit:
+    - GCR_MEMZ.ram0
+    - GCR_MEMZ.ram0ecc
+    - GCR_MEMZ.ram1
+    - GCR_MEMZ.ram2
+    - GCR_MEMZ.ram3
+- ICC0 16KB Cache
+- GCR_MEMZ.icc0
+- ICC1 16KB Cache, if enabled
+    - GCR_MEMZ.icc1
+    - Each of the CNNx16n processor arrays supports zeroizing the tornado RAM, mask RAM, bias RAM, and data SRAM:
+    - CNNx16_n_TEST.tramz set to 1 to zero, read CNNx16_n_TEST.tallzdone until 1 for completion
+    - CNNx16_n_TEST.mramz set to 1 to zero, read CNNx16_n_TEST.mallzdone until 1 for completion
+    - CNNx16_n_TEST.bramz set to 1 to zero, read CNNx16_n_TEST.ballzdone until 1 for completion
+    - CNNx16_n_TEST.sramz set to 1 to zero, read CNNx16_n_TEST.sallzdone until 1 for completion
+
+## Miscellaneous Control Registers (MCR)
+See [Table 3-3]() for the base address of this peripheral/module. See Table 1-1 for an explanation of the read and write access of each field. Unless specified otherwise, all fields are reset on a system reset, soft reset, POR, and the peripheral-specific resets.
+
+*Table 4-11: Miscellaneous Control Register Summary*
+<a name="table4-11-miscellaneous-control-register-summary"></a>
+
+<table border="1" cellpadding="5" cellspacing="0">
+  <tr style="background-color: #e0e0e0; font-weight: bold; text-align: center">
+    <th>Offset</th>
+    <th>Register Name</th>
+    <th>Access</th>
+    <th>Name</th>
+  </tr>
+  <tr>
+    <td>[0x0000]</td>
+    <td><a href="#error-correction-coding-enable-register">MCR_ECCEN</td>
+    <td>R/W</td>
+    <td>Error Correction Coding Enable Register</td>
+  </tr>
+  <tr>
+    <td>[0x0004]</td>
+    <td><a href="#ipo-manual-trim-register">MCR_IPO_MTRIM</td>
+    <td>R/W</td>
+    <td>IPO Manual Trim Register</td>
+  </tr>
+  <tr>
+    <td>[0x0008]</td>
+    <td><a href="#miscellaneous-output-enable-register">MCR_OUTEN</td>
+    <td>R/W</td>
+    <td>Miscellaneous Output Enable Register</td>
+  </tr>
+    <tr>
+    <td>[0x000C]</td>
+    <td><a href="#comparator-control-register">MCR_CMP_CTRL</td>
+    <td>R/W</td>
+    <td>Comparator Control Register</td>
+  </tr>
+  </tr>
+    <tr>
+    <td>[0x0010]</td>
+    <td><a href="#miscellaneous-control-register">MCR_CTRL</td>
+    <td>R/W</td>
+    <td>Miscellaneous Control Register</td>
+  </tr>
+    </tr>
+    <tr>
+    <td>[0x0020]</td>
+    <td><a href="#gpio3-pin-control-register">MCR_GPIO3_CTRL</td>
+    <td>R/W</td>
+    <td>GPIO3 Pin Control Register</td>
+  </tr>
+</table>
+
+### Miscellaneous Control Register Details
+
+*Table 4-12: Error Correction Coding Enable Register*
+<a name="table4-12-error-correction-coding-enable-register"></a>
+
+<table border="1" cellpadding="5" cellspacing="0">
+  <tr style="background-color: #e0e0e0; font-weight: bold; text-align: center">
+    <td colspan="3">Error Correction Coding Enable</td>
+    <td colspan="1">MCR_ECCEN</td>
+    <td>[0x0000]</td>
+  </tr>
+  <tr>
+    <th>Bits</th>
+    <th>Name</th>
+    <th>Access</th>
+    <th>Reset</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>31:1</td>
+    <td>-</td>
+    <td>RO</td>
+    <td>0</td>
+    <td><strong>Reserved</strong></td>
+  </tr>
+  <tr>
+    <td>0</td>
+    <td>ram0</td>
+    <td>R/W</td>
+    <td>0</td>
+    <td><strong>System RAM 0 ECC Enable</strong><br>Set this field to 1 to enable ECC for *sysram0*.<br>
+        <div style="margin-left: 20px">
+            <p>0: Disabled</p>
+            <p>1: Enabled</p>
+        </div>
+    </td>
+  </tr>
+</table>
+
+*Table 4-13: IPO Manual Register*
+<a name="table4-13-ipo-manual-register"></a>
+
+<table border="1" cellpadding="5" cellspacing="0">
+  <tr style="background-color: #e0e0e0; font-weight: bold; text-align: center">
+    <td colspan="3">IPO Manual Trim</td>
+    <td colspan="1">MCR_IPO_MTRIM</td>
+    <td>[0x0004]</td>
+  </tr>
+  <tr>
+    <th>Bits</th>
+    <th>Name</th>
+    <th>Access</th>
+    <th>Reset</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>31:9</td>
+    <td>-</td>
+    <td>R0</td>
+    <td>0</td>
+    <td><strong>Reserved</strong></td>
+  </tr>
+  <tr>
+    <td>8</td>
+    <td>trim_range</td>
+    <td>R/W</td>
+    <td>0</td>
+    <td><strong>Trim Range Select</strong><br>If this bit is set to 1, the value loaded into the MCR_IPO_MTRIM.mtrim field must be greater than the trim setting in the TRIMSIR_IPOLO.ipo_limitlo field.
+If this bit is set to 0, the value loaded into the MCR_IPO_MTRIM.mtrim field must be less than the trim setting in the TRIMSIR_CTRL.ipo_limithi field.
+        <div style="margin-left: 20px">
+            <p>0: MCR_IPO_MTRIM.mtrim < TRIMSIR_IPOLO.ipo_limitlo</p>
+            <p>1: MCR_IPO_MTRIM.mtrim > TRIMSIR_CTRL.ipo_limithi</p>
+        </div>   
+    </td>
+  </tr>
+  <tr>
+    <td>7:0</td>
+    <td>mtrim</td>
+    <td>R/W</td>
+    <td>0x04</td>
+    <td><strong>Manual Trim Value</strong><br>
+    Set this value to the desired manual trim based on the value set in MCR_IPO_MTRIM.trim_range.<br>
+    If MCR_IPO_MTRIM.trim_range is 0, the value in this field must be less than the value in TRIMSIR_IPOLO.ipo_limitlo.<br>
+    If MCR_IPO_MTRIM.trim_range is 1, the value in this field must be greater than the value in TRIMSIR_CTRL.ipo_limithi.
+    </td>
+  </tr>
+</table>
+
+*Table 4-14: Output Enable Register*
+<a name="output-enable-register"></a>
+
+<table border="1" cellpadding="5" cellspacing="0">
+  <tr style="background-color: #e0e0e0; font-weight: bold; text-align: center">
+    <td colspan="3">Output Enable</td>
+    <td colspan="1">MCR_OUTEN</td>
+    <td>[0x0008]</td>
+  </tr>
+  <tr>
+    <th>Bits</th>
+    <th>Name</th>
+    <th>Access</th>
+    <th>Reset</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>31:2</td>
+    <td>-</td>
+    <td>RO</td>
+    <td>0</td>
+    <td><strong>Reserved</strong></td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>pdown_out_en</td>
+    <td>R/W</td>
+    <td>0</td>
+    <td><strong>Power Down Output Enable on P3.0</strong><br>Set this field to 1 to enable the power down output, P3.0 AF1 (PDOWN). PDOWN is active in BACKUP and STANDBY.<br> 
+    <div style="margin-left: 20px">
+    <p>0: PDOWN output not enabled on P3.0</p>
+    <p>1: PDOWN output is enabled on P3.0</p>
+    </div>
+    </td>
+  </tr>
+    <tr>
+    <td>0</td>
+    <td>sqwout_en</td>
+    <td>R/W</td>
+    <td>0</td>
+    <td><strong>Square Wave Output Enable on P3.1 (SQWOUT)</strong><br>Set this field to 1 to enable the square wave output on P3.1 AF1 (SQWOUT).<br> 
+    <div style="margin-left: 20px">
+    <p>0: Square wave output not enabled on P3.1.</p>
+    <p>1: Square wave output enabled on P3.1.</p>
+    </div>
+    </td>
+  </tr>
+</table>
+
+*Table 4-15: Comparator 0 Control Register*
+<a name="table4-15-comparator0-control-register"></a>
+
+<table border="1" cellpadding="5" cellspacing="0">
+  <tr style="background-color: #e0e0e0; font-weight: bold; text-align: center">
+    <td colspan="3">Comparator 0 Control</td>
+    <td colspan="1">MCR_CMP_CTRL</td>
+    <td>[0x000C]</td>
+  </tr>
+  <tr>
+    <th>Bits</th>
+    <th>Name</th>
+    <th>Access</th>
+    <th>Reset</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>31:16</td>
+    <td>-</td>
+    <td>RO</td>
+    <td>0</td>
+    <td><strong>Reserved</strong></td>
+  </tr>
+  <tr>
+    <td>15</td>
+    <td>if</td>
+    <td>R/W1C</td>
+    <td>0</td>
+    <td><strong>Comparator 0 Interrupt Flag</strong><br>This field is set to 1 by hardware when the comparator output changes to the active state as set using the MCR_CMP_CTRL.pol field. Write 1 to clear this flag.<br> 
+    <div style="margin-left: 20px">
+    <p>0: No interrupt</p>
+    <p>1: Interrupt occurred</p>
+    </div>
+    </td>
+  </tr>
+<tr>
+    <td>14</td>
+    <td>out</td>
+    <td>RO</td>
+    <td>*</td>
+    <td><strong>Comparator 0 Output</strong><br>This field is the comparator output state.<br> 
+    <div style="margin-left: 20px">
+    <p>0: Output low</p>
+    <p>1: Output high</p>
+    </div>
+    </td>
+</tr>
+<tr>
+    <td>13-7</td>
+    <td>-</td>
+    <td>RO</td>
+    <td>*</td>
+    <td><strong>Reserved</strong> 
+    </td>
+  </tr>
+<tr>
+    <td>6</td>
+    <td>int_en</td>
+    <td>R/W</td>
+    <td>0</td>
+    <td><strong>Comparator 0 Interrupt Enable</strong><br>Set this field to 1 to enable the interrupt for comparator 0.<br> 
+    <div style="margin-left: 20px">
+    <p>0: Interrupt disabled</p>
+    <p>1: Interrupt enabled</p>
+    </div>
+    </td>
+</tr>
+<tr>
+    <td>5</td>
+    <td>pol</td>
+    <td>R/W</td>
+    <td>0</td>
+    <td><strong>Comparator 0 Interrupt Polarity Select</strong><br>Set this field to select the polarity of the output change that generates a comparator 3 interrupt.<br> 
+    <div style="margin-left: 20px">
+    <p>0: Interrupt occurs from a transition from low to high</p>
+    <p>1: Interrupt occurs from a transition from high to low</p>
+    </div>
+    </td>
+</tr>
+<tr>
+    <td>4:1</td>
+    <td>-</td>
+    <td>RO</td>
+    <td>0</td>
+    <td><strong>Reserved</strong>
+    </td>
+</tr>
+<tr>
+    <td>0</td>
+    <td>en</td>
+    <td>R/W</td>
+    <td>0</td>
+    <td><strong>Comparator 0 Enable</strong><br>Set this field to 1 to enable the comparator.<br> 
+    <div style="margin-left: 20px">
+    <p>0: Comparator disabled</p>
+    <p>1: Comparator enable</p>
+    </div>
+    </td>
+</tr>
+</table>
+
+*Table 4-16: Miscellaneous Control Register*
+<a name="table4-16-miscellaneous-control-register"></a>
+
+<table border="1" cellpadding="5" cellspacing="0">
+  <tr style="background-color: #e0e0e0; font-weight: bold; text-align: center">
+    <td colspan="3">Miscellaneous Control</td>
+    <td colspan="1">MCR_CTRL</td>
+    <td>[0x0010]</td>
+  </tr>
+  <tr>
+    <th>Bits</th>
+    <th>Name</th>
+    <th>Access</th>
+    <th>Reset</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>31:10</td>
+    <td>-</td>
+    <td>RO</td>
+    <td>0</td>
+    <td><strong>Reserved</strong></td>
+  </tr>
+  <tr>
+    <td>9</td>
+    <td>simo_rstd</td>
+    <td>R/W</td>
+    <td>0</td>
+    <td><strong>SIMO System Reset Disable</strong><br>If this field is set, the SIMO is only reset by a POR. When this bit is set, the VSET* stays unchanged when exiting all low-power modes.<br> 
+    <div style="margin-left: 20px">
+    <p>0: The SIMO is reset by all system resets.</p>
+    <p>1: The SIMO is only reset by a Power-On Reset.</p>
+    </div>
+    </td>
+  </tr>
+<tr>
+    <td>9</td>
+    <td>simo_rstd</td>
+    <td>R/W</td>
+    <td>0</td>
+    <td><strong>SIMO System Reset Disable</strong><br>If this field is set, the SIMO is only reset by a POR. When this bit is set, the VSET* stays unchanged when exiting all low-power modes.<br> 
+    <div style="margin-left: 20px">
+    <p>0: The SIMO is reset by all system resets.</p>
+    <p>1: The SIMO is only reset by a Power-On Reset.</p>
+    </div>
+    </td>
+</tr>
+<tr>
+    <td>8</td>
+    <td>simo_clkscl_en</td>
+    <td>R/W</td>
+    <td>0</td>
+    <td><strong>SIMO Clock Scaling Enable</strong><br>Set this field to 1 to enable dynamic clock scaling to the SIMO based on load current. When enabled, the SIMO clock slows down in low-power modes, reducing current consumption.<br> 
+    <div style="margin-left: 20px">
+    <p>0: SIMO clock scaling disabled</p>
+    <p>1: SIMO clock scaling enabled</p>
+    </div>
+    </td>
+</tr>
+<tr>
+    <td>7:4</td>
+    <td>-</td>
+    <td>DNM</td>
+    <td>0x01</td>
+    <td><strong>Reserved</strong>
+    </td>
+</tr>
+<tr>
+    <td>3</td>
+    <td>ertco_en</td>
+    <td>R/W</td>
+    <td>0</td>
+    <td><strong>ERTCO Enable for *LPM* and *UPM*</strong><br>Set this field to 1 to enable the ERTCO in *LPM* and *UPM*.<br> 
+    <div style="margin-left: 20px">
+    <p>0: ERTCO disabled</p>
+    <p>1: ERTCO enabled</p>
+    </div>
+    </td>
+</tr>
+<tr>
+    <td>2</td>
+    <td>inro_en</td>
+    <td>R/W</td>
+    <td>0</td>
+    <td><strong>INRO Enable</strong><br>Set this field to 1 to enable the INRO in *LPM* and *UPM*.<br> 
+    <div style="margin-left: 20px">
+    <p>0: INRO disabled</p>
+    <p>1: INRO enabled</p>
+    </div>
+    </td>
+</tr>
+<tr>
+    <td>1:0</td>
+    <td>-</td>
+    <td>RO</td>
+    <td>0</td>
+    <td><strong>Reserved</strong>
+    </td>
+</tr>
+</table>
+
+#### GPIO 3 Control
+
+*Table 4-17: GPIO3 Pin Control Register*
+<a name="table4-17-gpio3-pin-control-register"></a>
+
+<table border="1" cellpadding="5" cellspacing="0">
+  <tr style="background-color: #e0e0e0; font-weight: bold; text-align: center">
+    <td colspan="3">GPIO3 Pin Control</td>
+    <td colspan="1">MCR_GPIO3_CTRL</td>
+    <td>[0x0020]</td>
+  </tr>
+  <tr>
+    <th>Bits</th>
+    <th>Name</th>
+    <th>Access</th>
+    <th>Reset</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>31:17</td>
+    <td>-</td>
+    <td>R/W</td>
+    <td>-</td>
+    <td><strong>Reserved</strong></td>
+  </tr>
+  <tr>
+    <td>16</td>
+    <td>rdy</td>
+    <td>R</td>
+    <td>-</td>
+    <td><strong>Cache Size</strong><br>This field returns the size of the cache RAM in 1KB units. <br> <div style="margin-left: 20px">16: 16KB Cache RAM</div></td>
+  </tr>
+</table>

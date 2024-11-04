@@ -6,6 +6,7 @@ nav:
   - system-power-clocks-reset.md
   - flash-controller.md
 theme:
+  custom_dir: docs/css
   name: material
   palette:
     # Dark Mode

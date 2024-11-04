@@ -193,7 +193,7 @@ Writes to a flash address are only successful if the target address is already i
 2. Read the [FLC_CTRL](#flash-controller-clock-register).*pend* bit until it returns 0.
 3. Configure the [FLC_CLKDIV](#flash-controller-clock-divisor-register).*clkdiv* field to achieve a 1MHz frequency based on the selected SYS_CLK frequency.
 4. Set the [FLC_ADDR](#flash-controller-address-pointer) register to a valid target address. See [Table 7-2](#valid-addresses-flash-writes) for details.
-5. Set [FLC_DATA3](#flash-controller-data-register3), [FLC_DATA2](#flash-controller-data-register2), [FLC_DATA1](flash-controller-data-register1), and [FLC_DATA0](#flash-controller-data-register0) to the data to write.
+5. Set [FLC_DATA3](#flash-controller-data-register3), [FLC_DATA2](#flash-controller-data-register2), [FLC_DATA1](#flash-controller-data-register1), and [FLC_DATA0](#flash-controller-data-register0) to the data to write.
     
     a. **FLC_DATA3** is the most significant word, and **FLC_DATA0** is the least significant word.
       
@@ -282,7 +282,7 @@ See Table 3-3 for the base address of this peripheral/module. See Table 1-1 for 
     </tr>
     <tr>
       <td>[0x0030]</td>
-      <td><a href="#flash-controller-data0-register">FLC_DATA0</td>
+      <td><a href="#flash-controller-data-register0">FLC_DATA0</td>
       <td>R/W</td>
       <td>Flash Controller Data Register 0</td>
     </tr>
