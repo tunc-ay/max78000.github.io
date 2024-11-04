@@ -1,5 +1,5 @@
 site_name: MAX78000 User Guide
-site_url: https://sitename.example
+site_url: https://github.com/tunc-ay/max78000.github.io
 nav:
   - index.md
   - memory-register-mapping-access.md
