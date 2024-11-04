@@ -1,0 +1,2599 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://github.com/tunc-ay/max78000.github.io/system-power-clocks-reset/">
+      
+      
+        <link rel="prev" href="../memory-register-mapping-access/">
+      
+      
+        <link rel="next" href="../flash-controller/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.42">
+    
+    
+      
+        <title>System, Power, Clocks, Reset - MAX78000 User Guide</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.0253249f.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Merriweather+Sans:300,300i,400,400i,700,700i%7CRed+Hat+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Merriweather Sans";--md-code-font:"Red Hat Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../css/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="green" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#system-power-clocks-reset" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="MAX78000 User Guide" class="md-header__button md-logo" aria-label="MAX78000 User Guide" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MAX78000 User Guide
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              System, Power, Clocks, Reset
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="green" data-md-color-accent="deep-purple"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="deep-orange"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="MAX78000 User Guide" class="md-nav__button md-logo" aria-label="MAX78000 User Guide" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    MAX78000 User Guide
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../memory-register-mapping-access/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Memory, Register, Mapping, and Access
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    System, Power, Clocks, Reset
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    System, Power, Clocks, Reset
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#oscillator-sources" class="md-nav__link">
+    <span class="md-ellipsis">
+      Oscillator Sources
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Oscillator Sources">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#100mhz-internal-primary-oscillator-ipo" class="md-nav__link">
+    <span class="md-ellipsis">
+      100MHz Internal Primary Oscillator (IPO)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#60mhz-internal-secondary-oscillator-iso" class="md-nav__link">
+    <span class="md-ellipsis">
+      60MHz Internal Secondary Oscillator (ISO)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8khz-30khz-internal-nano-ring-oscillator-inro" class="md-nav__link">
+    <span class="md-ellipsis">
+      8kHz-30kHz Internal Nano-Ring Oscillator (INRO)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73728mhz-internal-baud-rate-oscillator-ibro" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.3728MHz Internal Baud Rate Oscillator (IBRO)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32768khz-external-real-time-clock-oscillator-ertco" class="md-nav__link">
+    <span class="md-ellipsis">
+      32.768kHz External Real-Time Clock Oscillator (ERTCO)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#system-oscillator-sys_osc" class="md-nav__link">
+    <span class="md-ellipsis">
+      System Oscillator (SYS_OSC)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="System Oscillator (SYS_OSC)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#system-oscillator-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      System Oscillator Selection
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#system-clock-sys_clk" class="md-nav__link">
+    <span class="md-ellipsis">
+      System Clock (SYS_CLK)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#operating-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Operating Modes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Operating Modes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#active-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      ACTIVE Mode
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#low-power-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Low-Power Modes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Low-Power Modes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sleep" class="md-nav__link">
+    <span class="md-ellipsis">
+      SLEEP
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SLEEP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#entering-sleep" class="md-nav__link">
+    <span class="md-ellipsis">
+      Entering SLEEP
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lpm" class="md-nav__link">
+    <span class="md-ellipsis">
+      LPM
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="LPM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#entering-lpm" class="md-nav__link">
+    <span class="md-ellipsis">
+      Entering LPM
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#upm" class="md-nav__link">
+    <span class="md-ellipsis">
+      UPM
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="UPM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#entering-upm" class="md-nav__link">
+    <span class="md-ellipsis">
+      Entering UPM
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#standby" class="md-nav__link">
+    <span class="md-ellipsis">
+      STANDBY
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="STANDBY">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#entering-standby" class="md-nav__link">
+    <span class="md-ellipsis">
+      Entering STANDBY
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#backup" class="md-nav__link">
+    <span class="md-ellipsis">
+      BACKUP
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="BACKUP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#entering-backup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Entering BACKUP
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pdm" class="md-nav__link">
+    <span class="md-ellipsis">
+      PDM
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="PDM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#entering-pdm" class="md-nav__link">
+    <span class="md-ellipsis">
+      Entering PDM
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wake-up-sources-for-each-operating-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      Wake-Up Sources for Each Operating Mode
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#device-resets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Device Resets
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Device Resets">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#peripheral-reset" class="md-nav__link">
+    <span class="md-ellipsis">
+      Peripheral Reset
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#soft-reset" class="md-nav__link">
+    <span class="md-ellipsis">
+      Soft Reset
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#system-reset" class="md-nav__link">
+    <span class="md-ellipsis">
+      System Reset
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#power-on-reset" class="md-nav__link">
+    <span class="md-ellipsis">
+      Power-On Reset
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unified-internal-cache-controllers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Unified Internal Cache Controllers
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Unified Internal Cache Controllers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#enabling-the-internal-cache-controllers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enabling the Internal Cache Controllers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#disabling-the-icc" class="md-nav__link">
+    <span class="md-ellipsis">
+      Disabling the ICC
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#invalidating-the-icc-cache-and-tag-ram" class="md-nav__link">
+    <span class="md-ellipsis">
+      Invalidating the ICC Cache and Tag RAM
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flushing-the-icc" class="md-nav__link">
+    <span class="md-ellipsis">
+      Flushing the ICC
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal-cache-control-registers-icc" class="md-nav__link">
+    <span class="md-ellipsis">
+      Internal Cache Control Registers (ICC)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#icc0-register-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      ICC0 Register Details
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ram-memory-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      RAM Memory Management
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="RAM Memory Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#on-chip-cache-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      On-Chip Cache Management
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ram-zeroization" class="md-nav__link">
+    <span class="md-ellipsis">
+      RAM Zeroization
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#miscellaneous-control-registers-mcr" class="md-nav__link">
+    <span class="md-ellipsis">
+      Miscellaneous Control Registers (MCR)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Miscellaneous Control Registers (MCR)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#miscellaneous-control-register-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      Miscellaneous Control Register Details
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Miscellaneous Control Register Details">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gpio-3-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      GPIO 3 Control
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#single-inductor-multiple-output-power-supply-simo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Single Inductor Multiple Output Power Supply (SIMO)
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flash-controller/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Flash Controller (FLC)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#oscillator-sources" class="md-nav__link">
+    <span class="md-ellipsis">
+      Oscillator Sources
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Oscillator Sources">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#100mhz-internal-primary-oscillator-ipo" class="md-nav__link">
+    <span class="md-ellipsis">
+      100MHz Internal Primary Oscillator (IPO)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#60mhz-internal-secondary-oscillator-iso" class="md-nav__link">
+    <span class="md-ellipsis">
+      60MHz Internal Secondary Oscillator (ISO)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8khz-30khz-internal-nano-ring-oscillator-inro" class="md-nav__link">
+    <span class="md-ellipsis">
+      8kHz-30kHz Internal Nano-Ring Oscillator (INRO)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73728mhz-internal-baud-rate-oscillator-ibro" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.3728MHz Internal Baud Rate Oscillator (IBRO)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32768khz-external-real-time-clock-oscillator-ertco" class="md-nav__link">
+    <span class="md-ellipsis">
+      32.768kHz External Real-Time Clock Oscillator (ERTCO)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#system-oscillator-sys_osc" class="md-nav__link">
+    <span class="md-ellipsis">
+      System Oscillator (SYS_OSC)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="System Oscillator (SYS_OSC)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#system-oscillator-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      System Oscillator Selection
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#system-clock-sys_clk" class="md-nav__link">
+    <span class="md-ellipsis">
+      System Clock (SYS_CLK)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#operating-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Operating Modes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Operating Modes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#active-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      ACTIVE Mode
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#low-power-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Low-Power Modes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Low-Power Modes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sleep" class="md-nav__link">
+    <span class="md-ellipsis">
+      SLEEP
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SLEEP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#entering-sleep" class="md-nav__link">
+    <span class="md-ellipsis">
+      Entering SLEEP
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lpm" class="md-nav__link">
+    <span class="md-ellipsis">
+      LPM
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="LPM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#entering-lpm" class="md-nav__link">
+    <span class="md-ellipsis">
+      Entering LPM
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#upm" class="md-nav__link">
+    <span class="md-ellipsis">
+      UPM
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="UPM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#entering-upm" class="md-nav__link">
+    <span class="md-ellipsis">
+      Entering UPM
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#standby" class="md-nav__link">
+    <span class="md-ellipsis">
+      STANDBY
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="STANDBY">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#entering-standby" class="md-nav__link">
+    <span class="md-ellipsis">
+      Entering STANDBY
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#backup" class="md-nav__link">
+    <span class="md-ellipsis">
+      BACKUP
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="BACKUP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#entering-backup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Entering BACKUP
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pdm" class="md-nav__link">
+    <span class="md-ellipsis">
+      PDM
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="PDM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#entering-pdm" class="md-nav__link">
+    <span class="md-ellipsis">
+      Entering PDM
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wake-up-sources-for-each-operating-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      Wake-Up Sources for Each Operating Mode
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#device-resets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Device Resets
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Device Resets">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#peripheral-reset" class="md-nav__link">
+    <span class="md-ellipsis">
+      Peripheral Reset
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#soft-reset" class="md-nav__link">
+    <span class="md-ellipsis">
+      Soft Reset
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#system-reset" class="md-nav__link">
+    <span class="md-ellipsis">
+      System Reset
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#power-on-reset" class="md-nav__link">
+    <span class="md-ellipsis">
+      Power-On Reset
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unified-internal-cache-controllers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Unified Internal Cache Controllers
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Unified Internal Cache Controllers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#enabling-the-internal-cache-controllers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enabling the Internal Cache Controllers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#disabling-the-icc" class="md-nav__link">
+    <span class="md-ellipsis">
+      Disabling the ICC
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#invalidating-the-icc-cache-and-tag-ram" class="md-nav__link">
+    <span class="md-ellipsis">
+      Invalidating the ICC Cache and Tag RAM
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flushing-the-icc" class="md-nav__link">
+    <span class="md-ellipsis">
+      Flushing the ICC
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal-cache-control-registers-icc" class="md-nav__link">
+    <span class="md-ellipsis">
+      Internal Cache Control Registers (ICC)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#icc0-register-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      ICC0 Register Details
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ram-memory-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      RAM Memory Management
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="RAM Memory Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#on-chip-cache-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      On-Chip Cache Management
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ram-zeroization" class="md-nav__link">
+    <span class="md-ellipsis">
+      RAM Zeroization
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#miscellaneous-control-registers-mcr" class="md-nav__link">
+    <span class="md-ellipsis">
+      Miscellaneous Control Registers (MCR)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Miscellaneous Control Registers (MCR)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#miscellaneous-control-register-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      Miscellaneous Control Register Details
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Miscellaneous Control Register Details">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gpio-3-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      GPIO 3 Control
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#single-inductor-multiple-output-power-supply-simo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Single Inductor Multiple Output Power Supply (SIMO)
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="system-power-clocks-reset">System, Power, Clocks, Reset</h1>
+<p>Different peripherals and subsystems use several clocks. These clocks are highly configurable by software, allowing developers to select the combination of application performance and power savings required for the target systems. Support for selectable core operating voltage is provided, enabling optimal timing access to the internal memories.</p>
+<h2 id="oscillator-sources">Oscillator Sources</h2>
+<h3 id="100mhz-internal-primary-oscillator-ipo">100MHz Internal Primary Oscillator (IPO)</h3>
+<p>The MAX78000 includes a 100MHz internal high-speed oscillator, referred to in this document as the internal primary oscillator (IPO). The IPO is the highest frequency oscillator and draws the most power.</p>
+<p>The IPO can optionally be powered down in LPM by setting the GCR_PM.ipo_pd field to 1.</p>
+<p>The IPO can be selected as the SYS_OSC. Use the IPO as the SYS_OSC by performing the following steps:</p>
+<ol>
+<li>Enable the IPO by setting GCR_CLKCTRL.ipo_en to 1.</li>
+<li>Wait until the GCR_CLKCTRL.ipo_rdy field reads 1, indicating the IPO is operating.</li>
+<li>Set GCR_CLKCTRL.sysclk_sel to 4.</li>
+<li>Wait until the GCR_CLKCTRL.sysclk_rdy field reads 1. The IPO is now operating as the SYS_OSC.</li>
+</ol>
+<h3 id="60mhz-internal-secondary-oscillator-iso">60MHz Internal Secondary Oscillator (ISO)</h3>
+<p>The ISO is a low-power internal secondary oscillator that is the power-on reset default SYS_OSC. The ISO is automatically selected as SYS_OSC after a system reset or POR.</p>
+<p>The following steps show how to enable the ISO and select it as the SYS_OSC.</p>
+<ol>
+<li>Enable the ISO by setting GCR_CLKCTRL.iso_en to 1.</li>
+<li>Wait until the GCR_CLKCTRL.iso_rdy field reads 1, indicating the ISO is operating.</li>
+<li>Set GCR_CLKCTRL.sysclk_sel to 0.</li>
+<li>Wait until the GCR_CLKCTRL.sysclk_rdy field reads 1. The ISO is now operating as the SYS_OSC.</li>
+</ol>
+<h3 id="8khz-30khz-internal-nano-ring-oscillator-inro">8kHz-30kHz Internal Nano-Ring Oscillator (INRO)</h3>
+<p>The INRO is an ultra-low-power internal oscillator that can be selected as the SYS_OSC. The INRO is always enabled and cannot be disabled by software.</p>
+<p>The frequency of this oscillator is configurable to 8kHz, 16kHz, or 30kHz. Use the TRIMSIR_INRO.lpclksel field to select the desired frequency. On a POR or system reset, the frequency defaults to 30kHz.</p>
+<p>The following steps show how to set the INRO as the SYS_OSC.</p>
+<ol>
+<li>Verify the GCR_CLKCTRL.inro_rdy field reads 1.</li>
+<li>Set GCR_CLKCTRL.sysclk_sel to 3.</li>
+<li>Wait until the GCR_CLKCTRL.sysclk_rdy field reads 1. The INRO is now operating as the SYS_OSC.</li>
+</ol>
+<h3 id="73728mhz-internal-baud-rate-oscillator-ibro">7.3728MHz Internal Baud Rate Oscillator (IBRO)</h3>
+<p>The IBRO is a very low-power internal oscillator that can be selected as SYS_OSC. The INRO can optionally be used as a dedicated baud rate clock for the UARTs. The INRO is useful if the selected SYS_OSC does not accurately generate a desired UART baud rate.</p>
+<p>The following steps show how to enable the IBRO and select it as the SYS_OSC.</p>
+<ol>
+<li>Wait until the GCR_CLKCTRL.ibro_rdy field reads 1, indicating the IBRO is operating.</li>
+<li>Set GCR_CLKCTRL.sysclk_sel to 5.</li>
+<li>Wait until the GCR_CLKCTRL.sysclk_rdy field reads 1. The IBRO is now operating as the SYS_OSC.</li>
+</ol>
+<h3 id="32768khz-external-real-time-clock-oscillator-ertco">32.768kHz External Real-Time Clock Oscillator (ERTCO)</h3>
+<p>The ERTCO is an extremely low-power internal oscillator that can be selected as the SYS_OSC. The ERTCO can optionally use a 32.768kHz input clock or an 8kHz independent nano-ring oscillator instead of an external crystal. The internal 32.768kHz clock is available as an output on GPIO P3.1 as alternate function 1 (SQWOUT).</p>
+<p>This oscillator is the default clock for the real-time clock (RTC). If the RTC is enabled, the ERTCO is enabled automatically, independent of the selection of the SYS_OSC. The ERTCO is disabled on a POR or system reset.</p>
+<p>The following steps show how to enable the ERTCO and select it as the SYS_OSC.</p>
+<ol>
+<li>Enable the ERTCO by setting GCR_CLKCTRL.ertco_en to 1.</li>
+<li>Wait until the GCR_CLKCTRL.ertco_rdy field reads 1, indicating the ERTCO is operating.</li>
+<li>Set GCR_CLKCTRL.sysclk_sel to 6.</li>
+<li>Wait until the GCR_CLKCTRL.sysclk_rdy field reads 1. The ERTCO is now operating as the SYS_OSC.</li>
+</ol>
+<h2 id="system-oscillator-sys_osc">System Oscillator (SYS_OSC)</h2>
+<p>The MAX78000 supports multiple clock sources as the SYS_OSC. The selected SYS_OSC is the clock source for most internal blocks. Each oscillator, description, and nominal frequency are shown in <a href="#available-system-oscillators">Table 4-1</a>. An external clock source, EXT_CLK, is supported on P0.3, alternate function 1. Each of the oscillators/clocks is described in detail in section Oscillator Sources.</p>
+<p><em>Table 4-1: Available System Oscillators</em>
+<a name="available-system-oscillators"></a></p>
+<table border="1" cellpadding="5" cellspacing="0">
+    <tr style="background-color: #e0e0e0; font-weight: bold; text-align: center">
+        <th>Oscillator/Clock</th>
+        <th>Description</th>
+        <th>Nominal Frequency</th>
+    </tr>
+    <tr>
+        <td>IPO</td>
+        <td>Internal Primary Oscillator</td>
+        <td>100MHz</td>
+    </tr>
+    <tr>
+        <td>ISO</td>
+        <td>Internal Secondary Oscillator</td>
+        <td>60MHz</td>
+    </tr>
+    <tr>
+        <td>INRO</td>
+        <td>Internal Nano-Ring Oscillator</td>
+        <td>Configurable 8kHz, 16kHz, or 30kHz</td>
+    </tr>
+    <tr>
+        <td>IBRO</td>
+        <td>Internal Baud Rate Oscillator</td>
+        <td>7.3728MHz</td>
+    </tr>
+    <tr>
+        <td>ERTCO</td>
+        <td>External Real-Time Clock Oscillator</td>
+        <td>32.768kHz</td>
+    </tr>
+    <tr>
+        <td>EXT_CLK</td>
+        <td>External Clock</td>
+        <td>Up to 80MHz</td>
+    </tr>
+</table>
+
+<h3 id="system-oscillator-selection">System Oscillator Selection</h3>
+<p>Set the system oscillator using the GCR_CLKCTRL.sysclk_sel field. Before selecting an oscillator as the system oscillator, the oscillator source must first be enabled and ready. See each oscillator source’s detailed description for the required steps to enable the oscillator and select it as the system oscillator.</p>
+<p>When the GCR_CLKCTRL.sysclk_sel is modified, hardware clears the GCR_CLKCTRL.sysclk_rdy field, and there is a delay until the switchover is complete. When the switchover to the selected SYS_OSC is complete, the GCR_CLKCTRL.sysclk_rdy field is set to 1 by hardware. The application software must verify that the switchover is complete before continuing operation.</p>
+<h3 id="system-clock-sys_clk">System Clock (SYS_CLK)</h3>
+<p>The selected SYS_OSC is the input to the system oscillator divider to generate the system clock (SYS_CLK). The system clock divider divides the selected SYS_OSC by the GCR_CLKCTRL.sysclk_div field, as shown in <a href="#equation-4-1-system-clock-scaling">Equation 4-1</a>.</p>
+<p><em>Equation 4-1: System Clock Scaling</em>
+<a name="equation-4-1-system-clock-scaling"></a></p>
+<p>SYS_CLK = SYS_OSC / 2<sup>sysclk_div</sup></p>
+<p>GCR_CLKCTRL.sysclk_div is selectable from 0 to 7, resulting in divisors of 1, 2, 4, 8, 16, 32, 64 or 128.</p>
+<p>SYS_CLK drives the Arm core, the RV32 core, and all AHB masters in the system. SYS_CLK generates the following internal clocks as shown below:</p>
+<ul>
+<li>AHB Clock<ul>
+<li>HLCK = SYS_CLK</li>
+</ul>
+</li>
+<li>APB Clock<ul>
+<li>PCLK = SYS_CLK / 2</li>
+</ul>
+</li>
+</ul>
+<p>The RTC uses the ERTCO for its clock source. Optionally, the RTC can run using an internal dedicated 8kHz nano-ring oscillator. See the Real-Time Clock (RTC) chapter for details on using this 8kHz nano-ring oscillator for the RTC.</p>
+<p>All oscillators are reset to their POR reset default state during:
+- Power-On Reset
+- System Reset</p>
+<p>Oscillator settings are <em>not</em> reset during:
+- Soft Reset
+- Peripheral Reset</p>
+<p><em>Table 4-2</em> shows each oscillator’s enabled state for each type of reset source in the MAX78000.
+<em>Note: A Watchdog Timer Reset performs a System Reset.</em></p>
+<p><em>Table 4-2: Reset Sources and Effect on Oscillator and System Clock</em>
+<a name="reset-sources-effect-oscillator-system-clock"></a></p>
+<table border="1" cellpadding="5" cellspacing="0">
+    <tr style="background-color: #e0e0e0; font-weight: bold; text-align: center">
+        <th></th>
+        <th colspan="4" align="center">Reset Source</th>
+    </tr>
+    <tr>
+        <th style="background-color: #e0e0e0; font-weight: bold; text-align: center">Oscillator</th>
+        <th>POR</th>
+        <th>System</th>
+        <th>Soft</th>
+        <th>Peripheral</th>
+    </tr>
+    <tr>
+        <td style="background-color: #e0e0e0; font-weight: bold; text-align: center">IPO</td>
+        <td>Disabled</td>
+        <td>Disabled</td>
+        <td>Retains State</td>
+        <td>Retains State</td>
+    </tr>
+    <tr>
+        <td style="background-color: #e0e0e0; font-weight: bold; text-align: center">ISO</td>
+        <td>Enabled</td>
+        <td>Enabled</td>
+        <td>Retains State</td>
+        <td>Retains State</td>
+    </tr>
+    <tr>
+        <td style="background-color: #e0e0e0; font-weight: bold; text-align: center">IBRO</td>
+        <td>Enabled</td>
+        <td>Enabled</td>
+        <td>Enabled</td>
+        <td>Enabled</td>
+    </tr>
+    <tr>
+        <td style="background-color: #e0e0e0; font-weight: bold; text-align: center">INRO</td>
+        <td>Enabled</td>
+        <td>Enabled</td>
+        <td>Enabled</td>
+        <td>Enabled</td>
+    </tr>
+    <tr>
+        <td style="background-color: #e0e0e0; font-weight: bold; text-align: center">ERTCO</td>
+        <td>Disabled</td>
+        <td>Disabled</td>
+        <td>Retains State</td>
+        <td>Retains State</td>
+    </tr>
+    <tr>
+        <td style="background-color: #e0e0e0; font-weight: bold; text-align: center">System Clock<br>(SYS_OSC) Source</td>
+        <td>ISO</td>
+        <td>ISO</td>
+        <td>Retains State</td>
+        <td>Retains State</td>
+    </tr>
+</table>
+
+<p>Figure 4-1: MAX78000 Clock Block Diagram shows a high-level diagram of the MAX78000 clock tree.
+<em>Figure 4-1: MAX78000 Clock Block Diagram</em></p>
+<h2 id="operating-modes">Operating Modes</h2>
+<p>The MAX78000 includes multiple operating modes and the ability to fine-tune power options to optimize performance and power. The system supports the following operating modes:</p>
+<ul>
+<li>ACTIVE</li>
+<li>SLEEP</li>
+<li>Low-Power Mode (LPM)</li>
+<li>Micro Power Mode (UPM)</li>
+<li>STANDBY</li>
+<li>BACKUP</li>
+<li>Power Down Mode (PDM)</li>
+</ul>
+<h3 id="active-mode">ACTIVE Mode</h3>
+<p>In this mode, both the CM4 and the RV32 cores can execute software, and all digital and analog peripherals are available on demand. Dynamic clocking disables peripheral not in use, providing the optimal mix of high performance and low power consumption. The CM4 has access to all System RAM by default. The RV32 has access to sysram2 and sysram3 and can be optionally configured to have exclusive access to these RAMs. Additionally, sysram3 can be configured as a unified internal cache controller for the RV32 allowing simultaneous data access and code execution for the CM4 and RV32 from the internal flash memory.</p>
+<p>Each of the peripherals can be individually enabled during active mode or powered down. The CNN and each of the four CNNx16_n Processor Arrays and their associated memories can be powered down or set to active mode.</p>
+<h3 id="low-power-modes">Low-Power Modes</h3>
+<h4 id="sleep">SLEEP</h4>
+<p>This mode consumes less power but wakes faster because the clocks can optionally be enabled.
+The device status is as follows:</p>
+<ul>
+<li>The CM4 (CPU0) is sleeping</li>
+<li>The RV32 (CPU1) is sleeping</li>
+<li>The CNN is optionally available for use</li>
+<li>Each of the four CNNx16_n quadrants is individually configurable for power down</li>
+<li>Standard DMA is available for use</li>
+<li>All peripherals are on unless explicitly disabled before entering SLEEP</li>
+</ul>
+<h5 id="entering-sleep">Entering SLEEP</h5>
+<p>Entering SLEEP requires both the CM4 and RV32 to cooperate to enter SLEEP. Synchronization is necessary for deterministic entry into SLEEP. Two methods are described below, allowing either core to request entry into SLEEP. Both methods use the semaphore peripheral interrupt to communicate between the cores.</p>
+<p>If the RV32 is driving entry to SLEEP, the RV32 notifies the CM4 of a request to enter SLEEP using Multiprocessor Communications. The CM4 receives the notification and then sends confirmation through the semaphore peripheral to the RV32. The CM4 should then enter SLEEP by setting the SCR.sleepdeep field to 0 and performing a WFI or WFE instruction. The RV32 should then enter SLEEP by performing a WFI instruction or by setting GCR_PM.mode to 1, followed by two NOP instructions.</p>
+<p>Alternatively, the CM4 can initiate the request to enter SLEEP by sending the request to the RV32 using Multiprocessor Communications. The RV32 confirms the request through Multiprocessor Communications and performs a WFI instruction followed by two NOP instructions. The CM4 should then enter SLEEP by setting SCR.sleepdeep to 0 and performing a WFI or WFE instruction or by setting GCR_PM.mode to 1.</p>
+<p><em>Figure 4-2: SLEEP Mode Clock Control</em></p>
+<h4 id="lpm">LPM</h4>
+<p>This mode is suitable for running the RV32 processor to collect and move data from enabled peripherals. The device status is a follows:</p>
+<ul>
+<li>The CM4, sysram0, and sysram1 are in state retention</li>
+<li>The CNN quadrants and memory are active and configurable.</li>
+<li>The RV32 can access the SPI, UARTS, Timers, I2C, 1-Wire, Timers, Pulse Train Engine, I2S, CRC, AES, TRNG, Comparators, as well as sysram2 and sysram3. Sysram3 can be configured to operate as the RV32 unified instruction cache</li>
+<li>The transition from LPM to ACTIVE is faster than the transition from BACKUP to ACTIVE because system initialization is not required</li>
+<li>The DMA is in state retention mode</li>
+<li>PWRSEQ_GP0 and PWRSEQ_GP1 registers retain state</li>
+<li>Choose the system PCLK or ISO as the clock source for the RV32 and all peripherals <ul>
+<li>PWRSEQ_LPCN.lpmclksel defaults to use ISO during LPM. Setting this field to 1 uses the PCLK</li>
+</ul>
+</li>
+<li>The following oscillators are powered down by default, but can be configured by software to remain active:<ul>
+<li>ISO</li>
+<li>IPO</li>
+<li>ERTCO</li>
+<li>INRO</li>
+</ul>
+</li>
+<li>The following oscillator is enabled:<ul>
+<li>IBRO</li>
+</ul>
+</li>
+</ul>
+<h5 id="entering-lpm">Entering LPM</h5>
+<p>Entry into LPM should be managed between the two cores using Multiprocessor Communications to ensure both cores are in a known state when entering LPM.</p>
+<p>When the CM4 puts itself into deep sleep, the device automatically enters LPM, and hardware sets the GCR_PM.mode to LPM. To place the CM4 in LPM mode in software, perform the following instructions.</p>
+<p>SCR.sleepdeep = 1;  // deep sleep mode enabled
+WFI (or WFE);   // Enter deep sleep mode</p>
+<p>If the RV32 requests the CM4 to enter LPM mode through Multiprocessor Communications and the CM4 enters SLEEP instead, by setting SCR.sleepdeep to 0 and performing a WFI or WFE instruction, the RV32 can put the device into LPM by directly setting the GCR_PM.mode field to LPM (8).</p>
+<p><em>Note: The device immediately enters LPM when the GCR_PM.mode field is set to LPM. If the CM4 is not in a known state, issues may occur when exiting LPM.</em></p>
+<p><em>Figure 4-3: LPM Clock and State Retention Diagram</em></p>
+<h4 id="upm">UPM</h4>
+<p>This mode is used for extremely low power consumption while using a minimal set of peripherals to provide wake-up capability. The device status during UPM is:</p>
+<ul>
+<li>Both CM4 and RV32 are state retained.</li>
+<li>System state and all system RAM are retained</li>
+<li>CNN quadrants are optionally powered off</li>
+<li>CNN memory provides selectable retention</li>
+<li>The GPIO pins retain their state</li>
+<li>All non-UPM peripherals are state retained</li>
+<li>The following oscillators are powered down:<ul>
+<li>IPO</li>
+<li>ISO</li>
+</ul>
+</li>
+<li>The following oscillators are enabled:<ul>
+<li>IBRO</li>
+<li>ERTCO, firmware configurable</li>
+<li>INRO, firmware configurable</li>
+</ul>
+</li>
+<li>The following UPM peripherals are available for use to wake the device:<ul>
+<li>LPUART0</li>
+<li>LPTMR0</li>
+<li>LPTMR1</li>
+<li>LPWDT0</li>
+<li>LPCOMP0-LPCOMP3</li>
+<li>GPIO</li>
+</ul>
+</li>
+</ul>
+<h5 id="entering-upm">Entering UPM</h5>
+<p>Entering UPM mode requires both the CM4 and RV32 to cooperate to enter UPM mode. Synchronization is necessary for deterministic entry into UPM. Two methods are described below, allowing either core to request entry into UPM and ensuring deterministic entry. Both methods use the Semaphore peripheral interrupt to communicate between the cores.</p>
+<p>If the RV32 is driving entry to UPM, the RV32 notifies the CM4 of a request to enter UPM using Multiprocessor Communications. The CM4 receives the notification and then sends a confirmation through the semaphore peripheral to the RV32. The CM4 should then enter SLEEP by setting SCR.sleepdeep to 0 and performing a WFI or WFE instruction. The RV32 sets the GCR_PM.mode to UPM, followed by two NOP instructions, and the device immediately enters UPM.</p>
+<p>Alternatively, the CM4 can initiate the request to enter UPM by sending the request to the RV32 using Multiprocessor Communications. The RV32 confirms the request through Multiprocessor Communications and performs a WFI instruction, followed by two NOP instructions. The CM4 then sets the GCR_PM.mode to UPM, and the device immediately enters UPM.</p>
+<p><em>Figure 4-4: UPM Clock and State Retention Block Diagram</em></p>
+<h4 id="standby">STANDBY</h4>
+<p>This mode is used to maintain the system operation while keeping time with the RTC. The device status is as follows:</p>
+<ul>
+<li>Both CM4 and RV32 are state retained.</li>
+<li>System state and all system RAM is retained</li>
+<li>CNN quadrants are powered off</li>
+<li>CNN memory provides selectable retention (optional state retention)</li>
+<li>GPIO pins retain their state</li>
+<li>All peripherals retain state</li>
+<li>The following oscillators are powered down:<ul>
+<li>IPO</li>
+<li>ISO</li>
+<li>IBRO</li>
+</ul>
+</li>
+<li>The following oscillators are enabled:<ul>
+<li>ERTCO, firmware configurable</li>
+<li>INRO</li>
+</ul>
+</li>
+</ul>
+<h5 id="entering-standby">Entering STANDBY</h5>
+<p>Entering STANDBY requires both the CM4 and RV32 to enter STANDBY mode. Synchronization is necessary for deterministic entry into STANDBY. Two methods are described below, allowing either core to request entry into STANDBY and ensuring deterministic entry. Both methods use the semaphore peripheral interrupt to communicate between the cores.</p>
+<p>If the RV32 is driving entry to STANDBY, the RV32 notifies the CM4 of a request to enter STANDBY using Multiprocessor Communications. The CM4 receives the notification and then sends a confirmation through the semaphore peripheral to the RV32. The CM4 should then enter SLEEP by setting SCR.sleepdeep to 0 and performing a WFI or WFE instruction. The RV32 sets the GCR_PM.mode to STANDBY, followed by two NOP instructions, and the device immediately enters into STANDBY.</p>
+<p>Alternatively, the CM4 can initiate the request to enter STANDBY by sending the request to the RV32 using Multiprocessor Communications. The RV32 confirms the request through Multiprocessor Communications and performs a WFI instruction followed by two NOP instructions. The CM4 then sets the GCR_PM.mode to STANDBY, and the device immediately enters STANDBY.</p>
+<p><em>Figure 4-5: STANDBY Mode Clock and State Retention Block Diagram</em></p>
+<h4 id="backup">BACKUP</h4>
+<p>This mode is used to maintain the System RAM. The device status is as follows:</p>
+<ul>
+<li>CM4 and RV32 are powered off.</li>
+<li>Sysram0, sysram1, sysram2, and sysram3 can be independently configured for state retention, as shown in Table 4-3.</li>
+<li>User-configurable CNN memory retention</li>
+<li>All peripherals are powered off</li>
+<li>The following oscillators are powered down:<ul>
+<li>IPO</li>
+<li>ISO</li>
+<li>IBRO</li>
+<li>INRO</li>
+</ul>
+</li>
+<li>The following oscillators are enabled:<ul>
+<li>ERTCO (The RTC peripheral can be turned off, but not the oscillator)</li>
+</ul>
+</li>
+</ul>
+<p><em>Table 4-3 System RAM Retention in BACKUP Mode</em></p>
+<h5 id="entering-backup">Entering BACKUP</h5>
+<p>Entering BACKUP mode does not require synchronization between the RV32 and CM4 cores. However, it is recommended that Multiprocessor Communications are used to ensure both cores are aware of entry into BACKUP and complete any memory transactions before entry.</p>
+<p>Either core can set GCR_PM.mode to BACKUP, and the device immediately enters BACKUP.</p>
+<p><em>Figure 4-6: BACKUP Mode Clock and State Retention Block Diagram</em></p>
+<h4 id="pdm">PDM</h4>
+<p>This mode is used during product level distribution and storage. The device status is as follows:</p>
+<ul>
+<li>The CM4 and RV32 are powered off</li>
+<li>All peripherals and all RAMs are powered down</li>
+<li>All oscillators are powered down</li>
+<li>There is no data retention in this mode, but values in the flash are preserved</li>
+<li>V<sub>REGI</sub> POR voltage monitor is operational.</li>
+<li>Exit from PDM is possible through an external reset (RSTN) or a wake-up event using either P3.0 or P3.1 if configured.</li>
+</ul>
+<h5 id="entering-pdm">Entering PDM</h5>
+<p>Entering PDM does not require synchronization between the RV32 and CM4 cores. However, it is recommended that Multiprocessor Communications is used to ensure both cores are aware of entry into PDM and complete any flash memory transactions.</p>
+<p>Either core can set GCR_PM.mode to PDM, and the device immediately enters PDM.</p>
+<p><em>Figure 4-7: PDM Clock and State Retention Block Diagram</em></p>
+<h2 id="wake-up-sources-for-each-operating-mode">Wake-Up Sources for Each Operating Mode</h2>
+<p>In all operating modes other than ACTIVE, wake-up sources are required to re-enter ACTIVE operation. <a href="#table4-4-wakeup-sources-for-each-operating-mode-in-78000">Table 4-4</a> shows available wake-up sources for each operating mode of the MAX78000.</p>
+<p><em>Note: Each wake-up source must be enabled individually except for External Reset, which is hardware controlled.</em></p>
+<p><em>Table 4-4: Wake-Up Sources for Each Operating Mode in the MAX78000</em>
+<a name="table4-4-wakeup-sources-for-each-operating-mode-in-78000"></a></p>
+<table>
+    <tr>
+        <th>Operating Mode</th>
+        <th>Any Peripheral Interrupts</th>
+        <th>External Reset</th>
+        <th>RV32</th>
+        <th>CNN</th>
+        <th>CNN FIFO</th>
+        <th>SPI1</th>
+        <th>SPI0</th>
+        <th>Any Peripheral Interrupts</th>
+        <th>I2C</th>
+        <th>I2C2</th>
+        <th>I2C1</th>
+        <th>I2C0</th>
+        <th>LPUART0 (UART3)</th>
+        <th>UART2</th>
+        <th>UART1</th>
+        <th>UART0</th>
+        <th>LPUART0 (TMR5)</th>
+        <th>LPUART0 (TMR4)</th>
+        <th>TMR3</th>
+        <th>TMR2</th>
+        <th>TMR1</th>
+        <th>TMR0</th>
+        <th>LPWDT0 (WDT1)</th>
+        <th>WDT0</th>
+        <th>LPCOMP3</th>
+        <th>LPCOMP2</th>
+        <th>LPCOMP1</th>
+        <th>COMP0</th>
+        <th>RTC</th>
+        <th>WUT</th>
+        <th>GPIO3</th>
+        <th>GPIO2</th>
+        <th>GPIO1</th>
+        <th>GPIO0</th>
+    </tr>
+    <tr>
+        <td>SLEEP</td>
+        <td>x</td><td>x</td><td>x</td><td>x</td><td></td><td></td><td></td><td></td>
+        <td></td><td></td><td></td><td>x</td><td></td><td></td><td></td><td></td>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        <td></td><td></td><td></td><td>x</td><td></td><td></td><td>x</td>
+    </tr>
+    <tr>
+        <td>LPM</td>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        <td></td><td></td><td></td><td></td><td></td>
+    </tr>
+    <tr>
+        <td>UPM</td>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    </tr>
+    <tr>
+        <td>STANDBY</td>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    </tr>
+    <tr>
+        <td>BACKUP</td>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    </tr>
+    <tr>
+        <td>PDM</td>
+        <td></td><td></td>
+    </tr>
+</table>
+
+<h2 id="device-resets">Device Resets</h2>
+<p>Four device resets are available:</p>
+<ul>
+<li>Peripheral Reset</li>
+<li>Soft Reset</li>
+<li>System Reset</li>
+<li>Power-On Reset</li>
+</ul>
+<p>On completion of any of the four reset cycles, all peripherals are reset. On completion of any reset cycle, HCLK and PCLK are operational, the CPU core receives clocks and power, and the device is in ACTIVE. Program execution begins at the reset vector address.</p>
+<p>The contents of the always-on domain (AoD) are reset only on power-cycling VCOREA, VCOREB, VDDA, VDDIOH, or VREGI.</p>
+<p>The on-chip peripherals can also be reset to their POR default state using the two reset registers, GCR_RST0 and GCR_RST1.</p>
+<p><a href="">Table 4-5</a> shows the effects of each reset type on each of the operating modes.</p>
+<p><em>Table 4-5: Reset and Low-Power Mode Effects</em></p>
+<h3 id="peripheral-reset">Peripheral Reset</h3>
+<p>Peripheral reset resets all peripherals. The CPU retains its state. The GPIO, watchdog timers, AoD, RAM retention, and general control registers (GCR), including the clock configuration, are unaffected.</p>
+<p>To start a peripheral reset, set GCR_RST0.periph to 1. The reset is completed immediately upon setting GCR_RST0.periph to 1.</p>
+<h3 id="soft-reset">Soft Reset</h3>
+<p>A soft reset is the same as a peripheral reset except that it also resets the GPIO to its POR state.</p>
+<p>To perform a soft reset, set GCR_RST0.soft to 1. The reset occurs immediately upon setting GCR_RST0.soft to 1.</p>
+<h3 id="system-reset">System Reset</h3>
+<p>A system reset is the same as a soft reset, except it also resets all GCR, resetting the clocks to their POR default state. The CPU state is reset, as well as the watchdog timers. The AoD and RAM are unaffected.</p>
+<p>A watchdog timer reset event initiates a system reset. To start a system reset, set GCR_RST0.sys to 1.</p>
+<h3 id="power-on-reset">Power-On Reset</h3>
+<p>A POR resets everything in the device to its default state. A POR results from V<sub>COREA</sub>, V<sub>COREB</sub>, V<sub>DDA</sub>, or V<sub>REGI</sub> falling below their reset voltage level. Refer to the MAX78000 data sheet for details of the reset voltage levels.</p>
+<h2 id="unified-internal-cache-controllers">Unified Internal Cache Controllers</h2>
+<p>The MAX78000 includes two unified internal cache controllers. ICC0 is the cache controller used for the CM4. ICC1, if enabled, is dedicated to the RV32 core. ICC1 uses sysram3 as the cache memory. If ICC1 is enabled, sysram3 is not accessible as SRAM (address range 0x2001 C000 to 0x2001 FFFF).</p>
+<p>Both caches, ICC0 and ICC1, include a line buffer, tag RAM, and a 16KB 2-way set associative RAM when enabled.</p>
+<h3 id="enabling-the-internal-cache-controllers">Enabling the Internal Cache Controllers</h3>
+<p>Enabling ICC1 for use as the cache controller for the RV32 requires using <em>sysram3</em> as the cache memory.
+<em>Note: The contents of sysram3 are lost when ICC1 is enabled, and sysram3 is not accessible for data reads or writes as part of the memory map.</em>
+<em>Note: Before enabling ICC1 as a cache controller, sysram3 should be zeroized.</em></p>
+<p>Perform the following steps to enable each ICC:</p>
+<ol>
+<li>Set the ICCn_CTRL.en to 0, ensuring the cache is invalidated when enabled.</li>
+<li>Set ICCn_CTRL.en to 1.</li>
+<li>Read ICCn_CTRL.rdy until it returns 1.</li>
+<li>Zeroize the ICC instance by setting GCR_MEMZ.icc0 or GCR_MEMZ.icc1 to 1.</li>
+</ol>
+<h3 id="disabling-the-icc">Disabling the ICC</h3>
+<p>Disable an ICC instance by setting ICCn_CTRL.en to 0.</p>
+<p>To use sysram3 as data RAM, first, disable the ICC1 instance as described above. When ICC1 is disabled, sysram3 is accessible as data RAM by both the CM4 and RV32 controllers unless sysram3 is configured for exclusive access by the RV32 core only.</p>
+<h3 id="invalidating-the-icc-cache-and-tag-ram">Invalidating the ICC Cache and Tag RAM</h3>
+<p>Invalidate the contents of a specific ICC instance by setting the ICCn_INVALIDATE register to 1. Once invalidated, the system flushes the cache. Read the ICCn_CTRL.rdy field until it returns 1 to determine when the flush is completed.</p>
+<h3 id="flushing-the-icc">Flushing the ICC</h3>
+<p>Flush ICC0 using the system configuration register (GCR_SYSCTRL). Set GCR_SYSCTRL.icc0_flush to 1 to immediately flush the contents of the 16KB cache and tag RAM.</p>
+<p>Flush ICC1 using the RV32 Control Register (FCR_URVCTRL). Set FCR_URVCTRL.icc1_flush to 1 to immediately flush the contents of the 16KB cache and tag RAM.</p>
+<h3 id="internal-cache-control-registers-icc">Internal Cache Control Registers (ICC)</h3>
+<p>See Table 3-3 for the base address of this peripheral/module. See Table 1-1 for an explanation of the read and write access of each field. Unless specified otherwise, all fields are reset on a system reset, soft reset, POR, and the peripheral-specific resets.</p>
+<p><em>Table 4-6: Instruction Cache Controller Register Summary</em>
+<a name="table4-6-instruction-cache-controller-register-summary"></a></p>
+<table border="1" cellpadding="5" cellspacing="0">
+  <tr style="background-color: #e0e0e0; font-weight: bold; text-align: center">
+    <th>Offset</th>
+    <th>Register</th>
+    <th>Name</th>
+  </tr>
+  <tr>
+    <td>[0x0000]</td>
+    <td><a href="#cache-id-register">ICCn_INFO</td>
+    <td>Cache ID Register</td>
+  </tr>
+  <tr>
+    <td>[0x0004]</td>
+    <td><a href="#cache-memory-size-register">ICCn_SZ</td>
+    <td>Cache Memory Size Register</td>
+  </tr>
+  <tr>
+    <td>[0x0100]</td>
+    <td><a href="#instruction-cache-control-register">ICCn_CTRL</td>
+    <td>Instruction Cache Control Register</td>
+  </tr>
+  <tr>
+    <td>[0x0700]</td>
+    <td><a href="#instruction-cache-controller-invalidate-register">ICCn_INVALIDATE</td>
+    <td>Instruction Cache Controller Invalidate Register</td>
+  </tr>
+</table>
+
+<h3 id="icc0-register-details">ICC0 Register Details</h3>
+<p><em>Table 4-7: ICC0 Cache Information Register</em>
+<a name="icc0-cache-information-register"></a></p>
+<table border="1" cellpadding="5" cellspacing="0">
+   <tr style="background-color: #e0e0e0; font-weight: bold; text-align: center">
+       <td colspan="3">ICC0 Cache Information</td>
+       <td colspan="1">ICCn_INFO</td>
+       <td>[0x0000]</td>
+   </tr>
+   <tr>
+       <th>Bits</th>
+       <th>Name</th>
+       <th>Access</th>
+       <th>Reset</th>
+       <th>Description</th>
+   </tr>
+   <tr>
+       <td>31:16</td>
+       <td>-</td>
+       <td>RO</td>
+       <td>0</td>
+       <td><strong>Reserved</strong></td>
+   </tr>
+   <tr>
+       <td>15:10</td>
+       <td>id</td>
+       <td>R</td>
+       <td>-</td>
+       <td><strong>Cache ID</strong><br>This field returns the ID for the cache instance.</td>
+   </tr>
+      <tr>
+       <td>9:6</td>
+       <td>partnum</td>
+       <td>R</td>
+       <td>-</td>
+       <td><strong>Cache Part Number</strong><br>This field returns the part number indicator for the cache instance.</td>
+   </tr>
+         <tr>
+       <td>5:0</td>
+       <td>relnum</td>
+       <td>R</td>
+       <td>-</td>
+       <td><strong>Cache Release Number</strong><br>This field returns the release number for the cache instance.</td>
+   </tr>
+</table>
+
+<p><em>Table 4-8: ICC0 Memory Size Register</em>
+<a name="icc0-memory-size-register"></a></p>
+<table border="1" cellpadding="5" cellspacing="0">
+   <tr style="background-color: #e0e0e0; font-weight: bold; text-align: center">
+       <td colspan="3">ICC0 Memory Size</td>
+       <td colspan="1">ICCn_SZ</td>
+       <td>[0x0004]</td>
+   </tr>
+   <tr>
+       <th>Bits</th>
+       <th>Name</th>
+       <th>Access</th>
+       <th>Reset</th>
+       <th>Description</th>
+   </tr>
+   <tr>
+       <td>31:16</td>
+       <td>mem</td>
+       <td>R</td>
+       <td>-</td>
+       <td><strong>Addressable Memory Size</strong><br>This field indicates the size of addressable memory by the cache controller instance in 128KB units.</td>
+   </tr>
+   <tr>
+       <td>15:0</td>
+       <td>cch</td>
+       <td>R</td>
+       <td>-</td>
+       <td><strong>Cache Size</strong><br>This field returns the size of the cache RAM in 1KB units. <br> <div style="margin-left: 20px">16: 16KB Cache RAM</td>
+   </tr>
+</table>
+
+<p><em>Table 4-9: ICC0 Cache Control Register</em>
+<a name="icc0-cache-control-register"></a></p>
+<table border="1" cellpadding="5" cellspacing="0">
+   <tr style="background-color: #e0e0e0; font-weight: bold; text-align: center">
+       <td colspan="3">ICC0 Cache Control</td>
+       <td colspan="1">ICCn_CTRL</td>
+       <td>[0x0100]</td>
+   </tr>
+   <tr>
+       <th>Bits</th>
+       <th>Name</th>
+       <th>Access</th>
+       <th>Reset</th>
+       <th>Description</th>
+   </tr>
+   <tr>
+       <td>31:17</td>
+       <td>-</td>
+       <td>R/W</td>
+       <td>-</td>
+       <td><strong>Reserved</strong></td>
+   </tr>
+   <tr>
+       <td>16</td>
+       <td>rdy</td>
+       <td>R</td>
+       <td>-</td>
+       <td><strong>Ready</strong><br>This field is cleared by hardware anytime the cache as a whole is invalidated (including a POR). Hardware automatically sets this field to 1 when the invalidate operation is complete, and the cache is ready.<br>
+        <div style="margin-left: 20px">
+            <p>0: Cache invalidation in process.</p>
+            <p>1: Cache is ready.</p>
+        </div>
+        *Note: While this field reads 0, the cache is bypassed, and reads come directly from the line fill buffer.*
+   </tr>
+      <tr>
+       <td>15:1</td>
+       <td>-</td>
+       <td>R/W</td>
+       <td>-</td>
+       <td><strong>Reserved</strong></td>
+   </tr>
+      <tr>
+       <td>0</td>
+       <td>en</td>
+       <td>R/W</td>
+       <td>0</td>
+       <td><strong>Cache Enable</strong><br>Set this field to 1 to enable the cache. Setting this field to 0 invalidates the cache contents, and the line fill buffer handles all reads. <br>         
+       <div style="margin-left: 20px">
+            <p>0: Disable</p>
+            <p>1: Enable</p>
+        </div>
+   </tr>
+</table>
+
+<p><em>Table 4-10: ICC0 Invalidate Register</em>
+<a name="table4-10-icc0-invalidate-register"></a></p>
+<table border="1" cellpadding="5" cellspacing="0">
+  <tr style="background-color: #e0e0e0; font-weight: bold; text-align: center">
+    <td colspan="3">ICC0 Invalidate</td>
+    <td colspan="1">ICCn_INVALIDATE</td>
+    <td>[0x0700]</td>
+  </tr>
+  <tr>
+    <th>Bits</th>
+    <th>Name</th>
+    <th>Access</th>
+    <th>Reset</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>31:0</td>
+    <td>invalid</td>
+    <td>W</td>
+    <td>-</td>
+    <td><strong>Invalidate</strong><br>Writing any value to this register invalidates the cache.</td>
+  </tr>
+</table>
+
+<h2 id="ram-memory-management">RAM Memory Management</h2>
+<p>This device has many features for managing the on-chip RAM. The on-chip RAM includes the data RAM, the unified cache controllers (ICC0 and ICC1), the CNN RAM, and the peripheral FIFOs.</p>
+<h3 id="on-chip-cache-management">On-Chip Cache Management</h3>
+<p>The MAX78000 includes two unified internal cache controllers for code and data fetches from the flash memory. The caches can be enabled, disabled, zeroized, and flushed. See section <a href="">Unified Internal Cache Controller</a> for details.</p>
+<h3 id="ram-zeroization">RAM Zeroization</h3>
+<p>The GCR memory zeroize register, GCR_MEMZ, allows clearing memory for software or security reasons. Zeroization writes all zeros to the specified memory.</p>
+<p>The following SRAM memories can be zeroized:</p>
+<ul>
+<li>Each of the System RAMs can be individually zeroized by setting the respective GCR_MEMZ bit:<ul>
+<li>GCR_MEMZ.ram0</li>
+<li>GCR_MEMZ.ram0ecc</li>
+<li>GCR_MEMZ.ram1</li>
+<li>GCR_MEMZ.ram2</li>
+<li>GCR_MEMZ.ram3</li>
+</ul>
+</li>
+<li>ICC0 16KB Cache</li>
+<li>GCR_MEMZ.icc0</li>
+<li>ICC1 16KB Cache, if enabled<ul>
+<li>GCR_MEMZ.icc1</li>
+<li>Each of the CNNx16n processor arrays supports zeroizing the tornado RAM, mask RAM, bias RAM, and data SRAM:</li>
+<li>CNNx16_n_TEST.tramz set to 1 to zero, read CNNx16_n_TEST.tallzdone until 1 for completion</li>
+<li>CNNx16_n_TEST.mramz set to 1 to zero, read CNNx16_n_TEST.mallzdone until 1 for completion</li>
+<li>CNNx16_n_TEST.bramz set to 1 to zero, read CNNx16_n_TEST.ballzdone until 1 for completion</li>
+<li>CNNx16_n_TEST.sramz set to 1 to zero, read CNNx16_n_TEST.sallzdone until 1 for completion</li>
+</ul>
+</li>
+</ul>
+<h2 id="miscellaneous-control-registers-mcr">Miscellaneous Control Registers (MCR)</h2>
+<p>See <a href="">Table 3-3</a> for the base address of this peripheral/module. See Table 1-1 for an explanation of the read and write access of each field. Unless specified otherwise, all fields are reset on a system reset, soft reset, POR, and the peripheral-specific resets.</p>
+<p><em>Table 4-11: Miscellaneous Control Register Summary</em>
+<a name="table4-11-miscellaneous-control-register-summary"></a></p>
+<table border="1" cellpadding="5" cellspacing="0">
+  <tr style="background-color: #e0e0e0; font-weight: bold; text-align: center">
+    <th>Offset</th>
+    <th>Register Name</th>
+    <th>Access</th>
+    <th>Name</th>
+  </tr>
+  <tr>
+    <td>[0x0000]</td>
+    <td><a href="#error-correction-coding-enable-register">MCR_ECCEN</td>
+    <td>R/W</td>
+    <td>Error Correction Coding Enable Register</td>
+  </tr>
+  <tr>
+    <td>[0x0004]</td>
+    <td><a href="#ipo-manual-trim-register">MCR_IPO_MTRIM</td>
+    <td>R/W</td>
+    <td>IPO Manual Trim Register</td>
+  </tr>
+  <tr>
+    <td>[0x0008]</td>
+    <td><a href="#miscellaneous-output-enable-register">MCR_OUTEN</td>
+    <td>R/W</td>
+    <td>Miscellaneous Output Enable Register</td>
+  </tr>
+    <tr>
+    <td>[0x000C]</td>
+    <td><a href="#comparator-control-register">MCR_CMP_CTRL</td>
+    <td>R/W</td>
+    <td>Comparator Control Register</td>
+  </tr>
+  </tr>
+    <tr>
+    <td>[0x0010]</td>
+    <td><a href="#miscellaneous-control-register">MCR_CTRL</td>
+    <td>R/W</td>
+    <td>Miscellaneous Control Register</td>
+  </tr>
+    </tr>
+    <tr>
+    <td>[0x0020]</td>
+    <td><a href="#gpio3-pin-control-register">MCR_GPIO3_CTRL</td>
+    <td>R/W</td>
+    <td>GPIO3 Pin Control Register</td>
+  </tr>
+</table>
+
+<h3 id="miscellaneous-control-register-details">Miscellaneous Control Register Details</h3>
+<p><em>Table 4-12: Error Correction Coding Enable Register</em>
+<a name="table4-12-error-correction-coding-enable-register"></a></p>
+<table border="1" cellpadding="5" cellspacing="0">
+  <tr style="background-color: #e0e0e0; font-weight: bold; text-align: center">
+    <td colspan="3">Error Correction Coding Enable</td>
+    <td colspan="1">MCR_ECCEN</td>
+    <td>[0x0000]</td>
+  </tr>
+  <tr>
+    <th>Bits</th>
+    <th>Name</th>
+    <th>Access</th>
+    <th>Reset</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>31:1</td>
+    <td>-</td>
+    <td>RO</td>
+    <td>0</td>
+    <td><strong>Reserved</strong></td>
+  </tr>
+  <tr>
+    <td>0</td>
+    <td>ram0</td>
+    <td>R/W</td>
+    <td>0</td>
+    <td><strong>System RAM 0 ECC Enable</strong><br>Set this field to 1 to enable ECC for *sysram0*.<br>
+        <div style="margin-left: 20px">
+            <p>0: Disabled</p>
+            <p>1: Enabled</p>
+        </div>
+    </td>
+  </tr>
+</table>
+
+<p><em>Table 4-13: IPO Manual Register</em>
+<a name="table4-13-ipo-manual-register"></a></p>
+<table border="1" cellpadding="5" cellspacing="0">
+  <tr style="background-color: #e0e0e0; font-weight: bold; text-align: center">
+    <td colspan="3">IPO Manual Trim</td>
+    <td colspan="1">MCR_IPO_MTRIM</td>
+    <td>[0x0004]</td>
+  </tr>
+  <tr>
+    <th>Bits</th>
+    <th>Name</th>
+    <th>Access</th>
+    <th>Reset</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>31:9</td>
+    <td>-</td>
+    <td>R0</td>
+    <td>0</td>
+    <td><strong>Reserved</strong></td>
+  </tr>
+  <tr>
+    <td>8</td>
+    <td>trim_range</td>
+    <td>R/W</td>
+    <td>0</td>
+    <td><strong>Trim Range Select</strong><br>If this bit is set to 1, the value loaded into the MCR_IPO_MTRIM.mtrim field must be greater than the trim setting in the TRIMSIR_IPOLO.ipo_limitlo field.
+If this bit is set to 0, the value loaded into the MCR_IPO_MTRIM.mtrim field must be less than the trim setting in the TRIMSIR_CTRL.ipo_limithi field.
+        <div style="margin-left: 20px">
+            <p>0: MCR_IPO_MTRIM.mtrim < TRIMSIR_IPOLO.ipo_limitlo</p>
+            <p>1: MCR_IPO_MTRIM.mtrim > TRIMSIR_CTRL.ipo_limithi</p>
+        </div>   
+    </td>
+  </tr>
+  <tr>
+    <td>7:0</td>
+    <td>mtrim</td>
+    <td>R/W</td>
+    <td>0x04</td>
+    <td><strong>Manual Trim Value</strong><br>
+    Set this value to the desired manual trim based on the value set in MCR_IPO_MTRIM.trim_range.<br>
+    If MCR_IPO_MTRIM.trim_range is 0, the value in this field must be less than the value in TRIMSIR_IPOLO.ipo_limitlo.<br>
+    If MCR_IPO_MTRIM.trim_range is 1, the value in this field must be greater than the value in TRIMSIR_CTRL.ipo_limithi.
+    </td>
+  </tr>
+</table>
+
+<p><em>Table 4-14: Output Enable Register</em>
+<a name="output-enable-register"></a></p>
+<table border="1" cellpadding="5" cellspacing="0">
+  <tr style="background-color: #e0e0e0; font-weight: bold; text-align: center">
+    <td colspan="3">Output Enable</td>
+    <td colspan="1">MCR_OUTEN</td>
+    <td>[0x0008]</td>
+  </tr>
+  <tr>
+    <th>Bits</th>
+    <th>Name</th>
+    <th>Access</th>
+    <th>Reset</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>31:2</td>
+    <td>-</td>
+    <td>RO</td>
+    <td>0</td>
+    <td><strong>Reserved</strong></td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>pdown_out_en</td>
+    <td>R/W</td>
+    <td>0</td>
+    <td><strong>Power Down Output Enable on P3.0</strong><br>Set this field to 1 to enable the power down output, P3.0 AF1 (PDOWN). PDOWN is active in BACKUP and STANDBY.<br> 
+    <div style="margin-left: 20px">
+    <p>0: PDOWN output not enabled on P3.0</p>
+    <p>1: PDOWN output is enabled on P3.0</p>
+    </div>
+    </td>
+  </tr>
+    <tr>
+    <td>0</td>
+    <td>sqwout_en</td>
+    <td>R/W</td>
+    <td>0</td>
+    <td><strong>Square Wave Output Enable on P3.1 (SQWOUT)</strong><br>Set this field to 1 to enable the square wave output on P3.1 AF1 (SQWOUT).<br> 
+    <div style="margin-left: 20px">
+    <p>0: Square wave output not enabled on P3.1.</p>
+    <p>1: Square wave output enabled on P3.1.</p>
+    </div>
+    </td>
+  </tr>
+</table>
+
+<p><em>Table 4-15: Comparator 0 Control Register</em>
+<a name="table4-15-comparator0-control-register"></a></p>
+<table border="1" cellpadding="5" cellspacing="0">
+  <tr style="background-color: #e0e0e0; font-weight: bold; text-align: center">
+    <td colspan="3">Comparator 0 Control</td>
+    <td colspan="1">MCR_CMP_CTRL</td>
+    <td>[0x000C]</td>
+  </tr>
+  <tr>
+    <th>Bits</th>
+    <th>Name</th>
+    <th>Access</th>
+    <th>Reset</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>31:16</td>
+    <td>-</td>
+    <td>RO</td>
+    <td>0</td>
+    <td><strong>Reserved</strong></td>
+  </tr>
+  <tr>
+    <td>15</td>
+    <td>if</td>
+    <td>R/W1C</td>
+    <td>0</td>
+    <td><strong>Comparator 0 Interrupt Flag</strong><br>This field is set to 1 by hardware when the comparator output changes to the active state as set using the MCR_CMP_CTRL.pol field. Write 1 to clear this flag.<br> 
+    <div style="margin-left: 20px">
+    <p>0: No interrupt</p>
+    <p>1: Interrupt occurred</p>
+    </div>
+    </td>
+  </tr>
+<tr>
+    <td>14</td>
+    <td>out</td>
+    <td>RO</td>
+    <td>*</td>
+    <td><strong>Comparator 0 Output</strong><br>This field is the comparator output state.<br> 
+    <div style="margin-left: 20px">
+    <p>0: Output low</p>
+    <p>1: Output high</p>
+    </div>
+    </td>
+</tr>
+<tr>
+    <td>13-7</td>
+    <td>-</td>
+    <td>RO</td>
+    <td>*</td>
+    <td><strong>Reserved</strong> 
+    </td>
+  </tr>
+<tr>
+    <td>6</td>
+    <td>int_en</td>
+    <td>R/W</td>
+    <td>0</td>
+    <td><strong>Comparator 0 Interrupt Enable</strong><br>Set this field to 1 to enable the interrupt for comparator 0.<br> 
+    <div style="margin-left: 20px">
+    <p>0: Interrupt disabled</p>
+    <p>1: Interrupt enabled</p>
+    </div>
+    </td>
+</tr>
+<tr>
+    <td>5</td>
+    <td>pol</td>
+    <td>R/W</td>
+    <td>0</td>
+    <td><strong>Comparator 0 Interrupt Polarity Select</strong><br>Set this field to select the polarity of the output change that generates a comparator 3 interrupt.<br> 
+    <div style="margin-left: 20px">
+    <p>0: Interrupt occurs from a transition from low to high</p>
+    <p>1: Interrupt occurs from a transition from high to low</p>
+    </div>
+    </td>
+</tr>
+<tr>
+    <td>4:1</td>
+    <td>-</td>
+    <td>RO</td>
+    <td>0</td>
+    <td><strong>Reserved</strong>
+    </td>
+</tr>
+<tr>
+    <td>0</td>
+    <td>en</td>
+    <td>R/W</td>
+    <td>0</td>
+    <td><strong>Comparator 0 Enable</strong><br>Set this field to 1 to enable the comparator.<br> 
+    <div style="margin-left: 20px">
+    <p>0: Comparator disabled</p>
+    <p>1: Comparator enable</p>
+    </div>
+    </td>
+</tr>
+</table>
+
+<p><em>Table 4-16: Miscellaneous Control Register</em>
+<a name="table4-16-miscellaneous-control-register"></a></p>
+<table border="1" cellpadding="5" cellspacing="0">
+  <tr style="background-color: #e0e0e0; font-weight: bold; text-align: center">
+    <td colspan="3">Miscellaneous Control</td>
+    <td colspan="1">MCR_CTRL</td>
+    <td>[0x0010]</td>
+  </tr>
+  <tr>
+    <th>Bits</th>
+    <th>Name</th>
+    <th>Access</th>
+    <th>Reset</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>31:10</td>
+    <td>-</td>
+    <td>RO</td>
+    <td>0</td>
+    <td><strong>Reserved</strong></td>
+  </tr>
+  <tr>
+    <td>9</td>
+    <td>simo_rstd</td>
+    <td>R/W</td>
+    <td>0</td>
+    <td><strong>SIMO System Reset Disable</strong><br>If this field is set, the SIMO is only reset by a POR. When this bit is set, the VSET* stays unchanged when exiting all low-power modes.<br> 
+    <div style="margin-left: 20px">
+    <p>0: The SIMO is reset by all system resets.</p>
+    <p>1: The SIMO is only reset by a Power-On Reset.</p>
+    </div>
+    </td>
+  </tr>
+<tr>
+    <td>9</td>
+    <td>simo_rstd</td>
+    <td>R/W</td>
+    <td>0</td>
+    <td><strong>SIMO System Reset Disable</strong><br>If this field is set, the SIMO is only reset by a POR. When this bit is set, the VSET* stays unchanged when exiting all low-power modes.<br> 
+    <div style="margin-left: 20px">
+    <p>0: The SIMO is reset by all system resets.</p>
+    <p>1: The SIMO is only reset by a Power-On Reset.</p>
+    </div>
+    </td>
+</tr>
+<tr>
+    <td>8</td>
+    <td>simo_clkscl_en</td>
+    <td>R/W</td>
+    <td>0</td>
+    <td><strong>SIMO Clock Scaling Enable</strong><br>Set this field to 1 to enable dynamic clock scaling to the SIMO based on load current. When enabled, the SIMO clock slows down in low-power modes, reducing current consumption.<br> 
+    <div style="margin-left: 20px">
+    <p>0: SIMO clock scaling disabled</p>
+    <p>1: SIMO clock scaling enabled</p>
+    </div>
+    </td>
+</tr>
+<tr>
+    <td>7:4</td>
+    <td>-</td>
+    <td>DNM</td>
+    <td>0x01</td>
+    <td><strong>Reserved</strong>
+    </td>
+</tr>
+<tr>
+    <td>3</td>
+    <td>ertco_en</td>
+    <td>R/W</td>
+    <td>0</td>
+    <td><strong>ERTCO Enable for *LPM* and *UPM*</strong><br>Set this field to 1 to enable the ERTCO in *LPM* and *UPM*.<br> 
+    <div style="margin-left: 20px">
+    <p>0: ERTCO disabled</p>
+    <p>1: ERTCO enabled</p>
+    </div>
+    </td>
+</tr>
+<tr>
+    <td>2</td>
+    <td>inro_en</td>
+    <td>R/W</td>
+    <td>0</td>
+    <td><strong>INRO Enable</strong><br>Set this field to 1 to enable the INRO in *LPM* and *UPM*.<br> 
+    <div style="margin-left: 20px">
+    <p>0: INRO disabled</p>
+    <p>1: INRO enabled</p>
+    </div>
+    </td>
+</tr>
+<tr>
+    <td>1:0</td>
+    <td>-</td>
+    <td>RO</td>
+    <td>0</td>
+    <td><strong>Reserved</strong>
+    </td>
+</tr>
+</table>
+
+<h4 id="gpio-3-control">GPIO 3 Control</h4>
+<p><em>Table 4-17: GPIO3 Pin Control Register</em>
+<a name="table4-17-gpio3-pin-control-register"></a></p>
+<table border="1" cellpadding="5" cellspacing="0">
+  <tr style="background-color: #e0e0e0; font-weight: bold; text-align: center">
+    <td colspan="3">GPIO3 Pin Control</td>
+    <td colspan="1">MCR_GPIO3_CTRL</td>
+    <td>[0x0020]</td>
+  </tr>
+  <tr>
+    <th>Bits</th>
+    <th>Name</th>
+    <th>Access</th>
+    <th>Reset</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>31:8</td>
+    <td>-</td>
+    <td>RO</td>
+    <td>0</td>
+    <td><strong>Reserved</strong></td>
+  </tr>
+<tr>
+    <td>7</td>
+    <td>p31_in</td>
+    <td>RO</td>
+    <td>See Description</td>
+    <td><strong>GPIO3 Pin 1 Input Status</strong><br>Read this field to determine the input status of P3.1.<br> 
+      <div style="margin-left: 20px">
+        <p>0: Input Low</p>
+        <p>1: Input High</p>
+      </div>
+    </td>
+  </tr>
+<tr>
+    <td>6</td>
+    <td>p31_pe</td>
+    <td>R/W</td>
+    <td>0</td>
+    <td><strong>GPIO3 Pin 1 Pull-up Enable</strong><br>Set this bit to 1 to enable the pullup resistor for P3.1.<br> 
+      <div style="margin-left: 20px">
+        <p>0: Pull-up Disabled</p>
+        <p>1: Pull-up Enabled</p>
+      </div>
+    </td>
+</tr>
+<tr>
+    <td>5</td>
+    <td>p31_oe</td>
+    <td>R/W</td>
+    <td>0</td>
+    <td><strong>GPIO3 Pin 1 Output Enable</strong><br>Set this bit to 1 to enable P3.1 for output mode.<br> 
+      <div style="margin-left: 20px">
+        <p>0: Input mode.</p>
+        <p>1: Output mode enabled.</p>
+      </div>
+    </td>
+</tr>
+<tr>
+    <td>4</td>
+    <td>p31_do</td>
+    <td>R/W</td>
+    <td>0</td>
+    <td><strong>GPIO3 Pin 1 Data Output</strong><br>If *p31_oe* is set to 1, this field is used to control the output state of P3.1.<br> 
+      <div style="margin-left: 20px">
+        <p>0: Output low if *p31_oe* is 1</p>
+        <p>1: Output high if *p31_oe* is 1.</p>
+      </div>
+    </td>
+</tr>
+<tr>
+    <td>3</td>
+    <td>p30_in</td>
+    <td>RO</td>
+    <td>See Description</td>
+    <td><strong>GPIO3 Pin 0 Input Status</strong><br>Read this field to determine the input status of P3.0.<br> 
+      <div style="margin-left: 20px">
+        <p>0: Input Low</p>
+        <p>1: Input High</p>
+      </div>
+    </td>
+</tr>
+<tr>
+    <td>2</td>
+    <td>p30_pe</td>
+    <td>R/W</td>
+    <td>0</td>
+    <td><strong>GPIO3 Pin 0 Pull-up Enable</strong><br>Set this bit to 1 to enable the pullup resistor for P3.0.<br> 
+      <div style="margin-left: 20px">
+        <p>0: Pull-up Disabled</p>
+        <p>1: Pull-up Enabled</p>
+      </div>
+    </td>
+</tr>
+<tr>
+    <td>1</td>
+    <td>p30_oe</td>
+    <td>R/W</td>
+    <td>0</td>
+    <td><strong>GPIO3 Pin 0 Output Enable</strong><br>Set this bit to 1 to enable P3.0 for output mode.<br> 
+      <div style="margin-left: 20px">
+        <p>0: Input mode</p>
+        <p>1: Output mode enabled.</p>
+      </div>
+    </td>
+</tr>
+<tr>
+    <td>0</td>
+    <td>p30_do</td>
+    <td>R/W</td>
+    <td>0</td>
+    <td><strong>GPIO3 Pin 0 Data Output</strong><br>If *p30_oe* is set to 1, this field is used to control the output state of P3.0.<br> 
+      <div style="margin-left: 20px">
+        <p>0: Output low if *p30_oe* is 1</p>
+        <p>1: Output high if *p30_oe* is 1.</p>
+      </div>
+    </td>
+</tr>
+</table>
+
+<h2 id="single-inductor-multiple-output-power-supply-simo">Single Inductor Multiple Output Power Supply (SIMO)</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+    
+  </body>
+</html>

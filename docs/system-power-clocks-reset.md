@@ -1143,17 +1143,108 @@ If this bit is set to 0, the value loaded into the MCR_IPO_MTRIM.mtrim field mus
     <th>Description</th>
   </tr>
   <tr>
-    <td>31:17</td>
+    <td>31:8</td>
     <td>-</td>
-    <td>R/W</td>
-    <td>-</td>
+    <td>RO</td>
+    <td>0</td>
     <td><strong>Reserved</strong></td>
   </tr>
-  <tr>
-    <td>16</td>
-    <td>rdy</td>
-    <td>R</td>
-    <td>-</td>
-    <td><strong>Cache Size</strong><br>This field returns the size of the cache RAM in 1KB units. <br> <div style="margin-left: 20px">16: 16KB Cache RAM</div></td>
+<tr>
+    <td>7</td>
+    <td>p31_in</td>
+    <td>RO</td>
+    <td>See Description</td>
+    <td><strong>GPIO3 Pin 1 Input Status</strong><br>Read this field to determine the input status of P3.1.<br> 
+      <div style="margin-left: 20px">
+        <p>0: Input Low</p>
+        <p>1: Input High</p>
+      </div>
+    </td>
   </tr>
+<tr>
+    <td>6</td>
+    <td>p31_pe</td>
+    <td>R/W</td>
+    <td>0</td>
+    <td><strong>GPIO3 Pin 1 Pull-up Enable</strong><br>Set this bit to 1 to enable the pullup resistor for P3.1.<br> 
+      <div style="margin-left: 20px">
+        <p>0: Pull-up Disabled</p>
+        <p>1: Pull-up Enabled</p>
+      </div>
+    </td>
+</tr>
+<tr>
+    <td>5</td>
+    <td>p31_oe</td>
+    <td>R/W</td>
+    <td>0</td>
+    <td><strong>GPIO3 Pin 1 Output Enable</strong><br>Set this bit to 1 to enable P3.1 for output mode.<br> 
+      <div style="margin-left: 20px">
+        <p>0: Input mode.</p>
+        <p>1: Output mode enabled.</p>
+      </div>
+    </td>
+</tr>
+<tr>
+    <td>4</td>
+    <td>p31_do</td>
+    <td>R/W</td>
+    <td>0</td>
+    <td><strong>GPIO3 Pin 1 Data Output</strong><br>If *p31_oe* is set to 1, this field is used to control the output state of P3.1.<br> 
+      <div style="margin-left: 20px">
+        <p>0: Output low if *p31_oe* is 1</p>
+        <p>1: Output high if *p31_oe* is 1.</p>
+      </div>
+    </td>
+</tr>
+<tr>
+    <td>3</td>
+    <td>p30_in</td>
+    <td>RO</td>
+    <td>See Description</td>
+    <td><strong>GPIO3 Pin 0 Input Status</strong><br>Read this field to determine the input status of P3.0.<br> 
+      <div style="margin-left: 20px">
+        <p>0: Input Low</p>
+        <p>1: Input High</p>
+      </div>
+    </td>
+</tr>
+<tr>
+    <td>2</td>
+    <td>p30_pe</td>
+    <td>R/W</td>
+    <td>0</td>
+    <td><strong>GPIO3 Pin 0 Pull-up Enable</strong><br>Set this bit to 1 to enable the pullup resistor for P3.0.<br> 
+      <div style="margin-left: 20px">
+        <p>0: Pull-up Disabled</p>
+        <p>1: Pull-up Enabled</p>
+      </div>
+    </td>
+</tr>
+<tr>
+    <td>1</td>
+    <td>p30_oe</td>
+    <td>R/W</td>
+    <td>0</td>
+    <td><strong>GPIO3 Pin 0 Output Enable</strong><br>Set this bit to 1 to enable P3.0 for output mode.<br> 
+      <div style="margin-left: 20px">
+        <p>0: Input mode</p>
+        <p>1: Output mode enabled.</p>
+      </div>
+    </td>
+</tr>
+<tr>
+    <td>0</td>
+    <td>p30_do</td>
+    <td>R/W</td>
+    <td>0</td>
+    <td><strong>GPIO3 Pin 0 Data Output</strong><br>If *p30_oe* is set to 1, this field is used to control the output state of P3.0.<br> 
+      <div style="margin-left: 20px">
+        <p>0: Output low if *p30_oe* is 1</p>
+        <p>1: Output high if *p30_oe* is 1.</p>
+      </div>
+    </td>
+</tr>
 </table>
+
+## Single Inductor Multiple Output Power Supply (SIMO)
