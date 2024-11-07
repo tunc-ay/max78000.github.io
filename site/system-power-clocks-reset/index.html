@@ -22,7 +22,7 @@
     
     
       
-        <title>System, Power, Clocks, Reset - MAX78000 User Guide</title>
+        <title>System Power Clocks Reset - MAX78000 User Guide</title>
       
     
     
@@ -112,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              System, Power, Clocks, Reset
+              System Power Clocks Reset
             
           </span>
         </div>
@@ -235,7 +235,7 @@
         
   
   <span class="md-ellipsis">
-    Introduction
+    Home
   </span>
   
 
@@ -255,7 +255,7 @@
         
   
   <span class="md-ellipsis">
-    Memory, Register, Mapping, and Access
+    Memory Register Mapping
   </span>
   
 
@@ -284,7 +284,7 @@
           
   
   <span class="md-ellipsis">
-    System, Power, Clocks, Reset
+    System Power Clocks Reset
   </span>
   
 
@@ -295,7 +295,7 @@
         
   
   <span class="md-ellipsis">
-    System, Power, Clocks, Reset
+    System Power Clocks Reset
   </span>
   
 
@@ -869,7 +869,7 @@
         
   
   <span class="md-ellipsis">
-    Flash Controller (FLC)
+    Flash Controller
   </span>
   
 
@@ -3466,8 +3466,85 @@ If this bit is set to 0, the value loaded into the MCR_IPO_MTRIM.mtrim field mus
 </table>
 
 <h3 id="low-power-general-control-registers-details">Low-Power General Control Registers Details</h3>
-<p><em>Table4-37: Low-Power General Control Registers Details</em>
+<p><em>Table 4-37: Low-Power General Control Registers Details</em>
 <a name="reset-control-register"></a></p>
+<table border="1" cellpadding="5" cellspacing="0">
+  <tr style="background-color: #e0e0e0; font-weight: bold; text-align: center">
+    <td colspan="3">Low-Power Reset Control</td>
+    <td colspan="1">LPGCR_RST</td>
+    <td>[0x0004]</td>
+  </tr>
+  <tr>
+    <th>Bits</th>
+    <th>Name</th>
+    <th>Access</th>
+    <th>Reset</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>31:7</td>
+    <td>-</td>
+    <td>RO</td>
+    <td>0</td>
+    <td><strong>Reserved</strong></td>
+  </tr>
+  <tr>
+    <td>6</td>
+    <td>lpcomp</td>
+    <td>W1O</td>
+    <td>0</td>
+    <td><strong>Low Power Comparators Reset</strong><br>
+    Write 1 to reset. This field is cleared by hardware when the reset is complete. See Device Resets for additional information. </td>
+  </tr>
+  <tr>
+    <td>5</td>
+    <td>-</td>
+    <td>RO</td>
+    <td>0</td>
+    <td><strong>Reserved</strong>
+    </td>
+  </tr>
+  <tr>
+    <td>4</td>
+    <td>uart3</td>
+    <td>W1O</td>
+    <td>0</td>
+    <td><strong>UART3 (LPUART0) Reset</strong><br>
+    Write 1 to reset. This field is cleared by hardware when the reset is complete. See Device Resets for additional information.</td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td>tmr5</td>
+    <td>W1O</td>
+    <td>0</td>
+    <td><strong>TMR5 (LPTMR1) Reset</strong><br>
+    Write 1 to reset. This field is cleared by hardware when the reset is complete. See Device Resets for additional information.</td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>tmr4</td>
+    <td>W1O</td>
+    <td>0</td>
+    <td><strong>TMR4 (LPTMR0) Reset</strong><br>
+    Write 1 to reset. This field is cleared by hardware when the reset is complete. See Device Resets for additional information.</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>wdt1</td>
+    <td>W1O</td>
+    <td>0</td>
+    <td><strong>WDT1 (LPWDT0) Reset</strong><br>
+    Write 1 to reset. This field is cleared by hardware when the reset is complete. See Device Resets for additional information.</td>
+  </tr>
+  <tr>
+    <td>0</td>
+    <td>gpio2</td>
+    <td>W1O</td>
+    <td>0</td>
+    <td><strong>GPIO2 Reset</strong><br>
+    Write 1 to reset. This field is cleared by hardware when the reset is complete. See Device Resets for additional information.</td>
+  </tr>
+</table>
 
 
 

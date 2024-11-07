@@ -2102,5 +2102,118 @@ See [Table 3-3]() for the base address of this peripheral/module. See [Table 1-1
 
 ### Low-Power General Control Registers Details
 
-*Table4-37: Low-Power General Control Registers Details*
+*Table 4-37: Low-Power General Control Registers Details*
 <a name="reset-control-register"></a>
+
+<table border="1" cellpadding="5" cellspacing="0">
+  <tr style="background-color: #e0e0e0; font-weight: bold; text-align: center">
+    <td colspan="3">Low-Power Reset Control</td>
+    <td colspan="1">LPGCR_RST</td>
+    <td>[0x0004]</td>
+  </tr>
+  <tr>
+    <th>Bits</th>
+    <th>Name</th>
+    <th>Access</th>
+    <th>Reset</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>31:7</td>
+    <td>-</td>
+    <td>RO</td>
+    <td>0</td>
+    <td><strong>Reserved</strong></td>
+  </tr>
+  <tr>
+    <td>6</td>
+    <td>lpcomp</td>
+    <td>W1O</td>
+    <td>0</td>
+    <td><strong>Low Power Comparators Reset</strong><br>
+    Write 1 to reset. This field is cleared by hardware when the reset is complete. See Device Resets for additional information. </td>
+  </tr>
+  <tr>
+    <td>5</td>
+    <td>-</td>
+    <td>RO</td>
+    <td>0</td>
+    <td><strong>Reserved</strong>
+    </td>
+  </tr>
+  <tr>
+    <td>4</td>
+    <td>uart3</td>
+    <td>W1O</td>
+    <td>0</td>
+    <td><strong>UART3 (LPUART0) Reset</strong><br>
+    Write 1 to reset. This field is cleared by hardware when the reset is complete. See Device Resets for additional information.</td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td>tmr5</td>
+    <td>W1O</td>
+    <td>0</td>
+    <td><strong>TMR5 (LPTMR1) Reset</strong><br>
+    Write 1 to reset. This field is cleared by hardware when the reset is complete. See Device Resets for additional information.</td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>tmr4</td>
+    <td>W1O</td>
+    <td>0</td>
+    <td><strong>TMR4 (LPTMR0) Reset</strong><br>
+    Write 1 to reset. This field is cleared by hardware when the reset is complete. See Device Resets for additional information.</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>wdt1</td>
+    <td>W1O</td>
+    <td>0</td>
+    <td><strong>WDT1 (LPWDT0) Reset</strong><br>
+    Write 1 to reset. This field is cleared by hardware when the reset is complete. See Device Resets for additional information.</td>
+  </tr>
+  <tr>
+    <td>0</td>
+    <td>gpio2</td>
+    <td>W1O</td>
+    <td>0</td>
+    <td><strong>GPIO2 Reset</strong><br>
+    Write 1 to reset. This field is cleared by hardware when the reset is complete. See Device Resets for additional information.</td>
+  </tr>
+</table>
+
+*Table X-X: XXXX Register*
+<a name="xxxx"></a>
+
+<table border="1" cellpadding="5" cellspacing="0">
+  <tr style="background-color: #e0e0e0; font-weight: bold; text-align: center">
+    <td colspan="3">ICC0 Cache Control</td>
+    <td colspan="1">ICCn_CTRL</td>
+    <td>[0x0100]</td>
+  </tr>
+  <tr>
+    <th>Bits</th>
+    <th>Name</th>
+    <th>Access</th>
+    <th>Reset</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>31:17</td>
+    <td>-</td>
+    <td>R/W</td>
+    <td>-</td>
+    <td><strong>Reserved</strong></td>
+  </tr>
+  <tr>
+    <td>16</td>
+    <td>rdy</td>
+    <td>R</td>
+    <td>-</td>
+    <td><strong>Cache Size</strong><br>
+    This field returns the size of the cache RAM in 1KB units.<br>
+    </td>
+  </tr>
+
+</table>
