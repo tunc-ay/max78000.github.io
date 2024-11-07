@@ -1,12 +1,11 @@
 site_name: MAX78000 User Guide
 site_url: https://tunc-ay.github.io/max78000.github.io/
 nav:
-  - index.md
-  - memory-register-mapping-access.md
-  - system-power-clocks-reset.md
-  - flash-controller.md
+  - Home: index.md
+  - Memory Register Mapping: memory-register-mapping-access.md
+  - System Power Clocks Reset: system-power-clocks-reset.md
+  - Flash Controller: flash-controller.md
 theme:
-  custom_dir: docs/css 
   name: material
   palette:
     # Dark Mode
