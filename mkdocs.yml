@@ -1,12 +1,12 @@
 site_name: MAX78000 User Guide
-site_url: https://github.com/tunc-ay/max78000.github.io
+site_url: https://tunc-ay.github.io/max78000.github.io/
 nav:
   - index.md
   - memory-register-mapping-access.md
   - system-power-clocks-reset.md
   - flash-controller.md
 theme:
-  custom_dir: docs/css
+  custom_dir: docs/css 
   name: material
   palette:
     # Dark Mode
@@ -28,6 +28,7 @@ theme:
     text: Merriweather Sans
     code: Red Hat Mono
 markdown_extensions:
+  - admonition
   - pymdownx.highlight:
       anchor_linenums: true
       line_spans: __span
@@ -39,3 +40,7 @@ extra_css:
   - css/extra.css
 plugins:
   - search
+
+extra_javascript:
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
