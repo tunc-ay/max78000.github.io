@@ -2,8 +2,8 @@ site_name: MAX78000 User Guide
 site_url: https://tunc-ay.github.io/max78000.github.io/
 nav:
   - Home: index.md
-  - Memory Register Mapping: memory-register-mapping-access.md
-  - System Power Clocks Reset: system-power-clocks-reset.md
+  - Memory, Register, Mapping: memory-register-mapping-access.md
+  - System, Power, Clocks, Reset: system-power-clocks-reset.md
   - Flash Controller: flash-controller.md
 theme:
   name: material
@@ -35,8 +35,7 @@ markdown_extensions:
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - pymdownx.superfences
-extra_css:
-  - css/extra.css
+
 plugins:
   - search
 
