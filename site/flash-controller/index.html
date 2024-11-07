@@ -8,7 +8,7 @@
       
       
       
-        <link rel="canonical" href="https://github.com/tunc-ay/max78000.github.io/flash-controller/">
+        <link rel="canonical" href="https://tunc-ay.github.io/max78000.github.io/flash-controller/">
       
       
         <link rel="prev" href="../system-power-clocks-reset/">
@@ -603,9 +603,9 @@
 <p>The flash is organized as an array of 2,048 words by 128 bits, or 8,192 bytes per page. <a href="#internal-flash-memory-organization"><em>Table 7-1</em></a> shows the page start address and page end address of the internal flash memory.</p>
 <p><em>Table 7-1: MAX78000 Internal Flash Memory Organization</em>
 <a name="internal-flash-memory-organization"></a></p>
-<table>
+<table border="1" cellpadding="5" cellspacing="0">
   <thead>
-    <tr>
+    <tr style="background-color: #e0e0e0; font-weight: bold; text-align: center">
       <th>Instance</th>
       <th>Page Number</th>
       <th>Size (per page)</th>
@@ -672,7 +672,6 @@
 <p>The FLC requires a 1MHz internal clock. See Oscillator Sources for details. Use the FLC clock divisor to generate f<sub>FLCn_CLK</sub> = 1MHz, as shown in <a href="#flc-clock-frequency">Equation 7-1</a>. If using the IPO as the system clock, the <a href="#flash-controller-address-pointer">FLC_CLKDIV</a>.<em>clkdiv</em> should be set to 100 (0x64).</p>
 <p><em>Equation 7-1: FLC Clock Frequency</em>
 <a name="flc-clock-frequency"></a></p>
-<p>f<sub>FLCn_CLK</sub> = f<sub>SYS_CLK</sub> / FLCn_CLKDIV.<em>clkdiv</em> = 1MHz</p>
 <p>$$
 f_{\text{FLCn_CLK}} = \frac{f_{\text{SYS_CLK}}}{\text{FLCn_CLKDIV} \cdot \text{clkdiv}} = 1 \, \text{MHz}
 $$</p>
@@ -779,11 +778,17 @@ $$</p>
 <li>
 <p>Set the <a href="#flash-controller-clock-register">FLC_CTRL</a>.<em>unlock</em> field to 2 to unlock the flash.</p>
 </li>
-<li>Set the <a href="#flash-controller-clock-register">FLC_CTRL</a>.<em>wr</em> field to 1.
-    a. The hardware automatically clears this field when the write operation is complete.</li>
-<li>The <a href="#flash-controller-interrupt-register">FLC_INTR</a>.<em>done</em> field is set to 1 by hardware when the write completes.
-    a. An interrupt is generated if the <a href="#flash-controller-interrupt-register">FLC_INTR</a>.<em>doneie</em> field is set to 1.</li>
-<li>If an error occurred, the <a href="#flash-controller-interrupt-register">FLC_INTR</a>.<em>af</em> field is set to 1 by hardware. An interrupt is generated if the FLC_INTR.<em>afie</em> field is set to 1.</li>
+<li>
+<p>Set the <a href="#flash-controller-clock-register">FLC_CTRL</a>.<em>wr</em> field to 1.</p>
+<p>a. The hardware automatically clears this field when the write operation is complete.</p>
+</li>
+<li>
+<p>The <a href="#flash-controller-interrupt-register">FLC_INTR</a>.<em>done</em> field is set to 1 by hardware when the write completes.</p>
+<p>a. An interrupt is generated if the <a href="#flash-controller-interrupt-register">FLC_INTR</a>.<em>doneie</em> field is set to 1.</p>
+</li>
+<li>
+<p>If an error occurred, the <a href="#flash-controller-interrupt-register">FLC_INTR</a>.<em>af</em> field is set to 1 by hardware. An interrupt is generated if the FLC_INTR.<em>afie</em> field is set to 1.</p>
+</li>
 <li>Set the <a href="#flash-controller-clock-register">FLC_CTRL</a>.<em>unlock</em> field to any value other than 2 to re-lock the flash.</li>
 </ol>
 <p><em>Note: Code execution can occur within the same flash instance as targeted programming.</em></p>
@@ -1440,6 +1445,10 @@ $$</p>
     
     
       <script src="../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   </body>

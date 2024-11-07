@@ -8,7 +8,7 @@
       
       
       
-        <link rel="canonical" href="https://github.com/tunc-ay/max78000.github.io/memory-register-mapping-access/">
+        <link rel="canonical" href="https://tunc-ay.github.io/max78000.github.io/memory-register-mapping-access/">
       
       
         <link rel="prev" href="..">
@@ -893,11 +893,17 @@
 <h2 id="overview">Overview</h2>
 <p>The Arm Cortex-M4 architecture defines a standard memory space for unified code and data access. This memory space is addressed in units of single bytes but is most typically accessed in 32-bit (4 byte) units. It may also be accessed, depending on the implementation, in 8-bit (1 byte) or 16-bit (2 byte) widths. The total range of the memory space is 32 bits wide (4GB addressable total), from addresses 0x0000 0000 to 0xFFFF FFFF.</p>
 <p>However, it is important to note that the architectural definition does not require the entire 4GB memory range to be populated with addressable memory instances.</p>
+<p><em>Figure 3-1: CM4 Code Memory Mapping</em>
+<a name="figure3-1-cm4-code-memory-mapping"></a></p>
+<p><img alt="Figure 3-1" src="../assets/images/figure3-1.png" /></p>
+<p><em>Figure 3-2: RISC-V IBUS Code Memory Mapping</em>
+<a name="figure3-2-risc-v-ibus-code-memory-mapping"></a></p>
+<p><img alt="Figure 3-2" src="../assets/images/figure3-2.png" /></p>
 <h2 id="standard-memory-regions">Standard Memory Regions</h2>
 <p>Several standard memory regions are defined for the Arm Cortex-M4 (CPU0) and RISC-V (CPU1) architectures; many of these are optional for the system integrator. At a minimum, the MAX78000 must contain some code and data memory for application software, stack, and variable space for CPU0.</p>
 <h3 id="code-space">Code Space</h3>
 <p>The code space area of memory is designed to contain the primary memory used for code execution by the device. This memory area is defined from byte address range 0x0000 0000 to 0x1FFF FFFF (0.5GB maximum). The Cortex-M4 core and Arm debugger use two different standard core bus masters to access this memory area. The I-Code AHB bus master is used for instruction decode fetching from code memory, while the D-Code AHB bus master is used for data fetches from code memory. This is arranged so that data fetches avoid interfering with instruction execution. Additionally, the RV32 uses the D-BUS to access code memory in this area and the I-Bus to access data fetches from the code memory.</p>
-<p>The MAX78000 code memory mapping is illustrated in Figure 3-1 and Figure 3-2. The code space memory area contains the main internal flash memory, which holds most of the software executed on the device. The internal flash memory is mapped into both code and data space from 0x1000 0000 to 0x1007 FFFF. The main program flash memory is 512KB and consists of 64 logical pages of 8,192 Bytes per page.</p>
+<p>The MAX78000 code memory mapping is illustrated in <a href="#figure3-1-cm4-code-memory-mapping">Figure 3-1</a> and <a href="#figure3-2-risc-v-ibus-code-memory-mapping">Figure 3-2</a>. The code space memory area contains the main internal flash memory, which holds most of the software executed on the device. The internal flash memory is mapped into both code and data space from 0x1000 0000 to 0x1007 FFFF. The main program flash memory is 512KB and consists of 64 logical pages of 8,192 Bytes per page.</p>
 <p>This program memory area must also contain the default system vector table and the initial settings for all system exception handlers and interrupt handlers for the CM4 core. The reset vector for the device is 0x0000 0000 and contains the device ROM code that transfers execution to user code at address 0x1000 0000.</p>
 <p>The code space memory on the MAX78000 also contains the mapping for the flash information block, from 0x1080 0000 to 0x1080 3FFF. However, this mapping is only present during production test; it is disabled once the information block has been loaded with valid data and the info block lockout option has been set. This memory is accessible for data reads only and cannot be used for code execution. See Information Block Flash Memory for additional details.</p>
 <h3 id="internal-cache-memory">Internal Cache Memory</h3>
@@ -905,7 +911,7 @@
 <p>The unified internal cache memory is used to cache data and instructions fetched through the I-Code bus for the CM4 or the IBUS for the RV32 from the internal flash memory. See section Unified Internal Cache Controller for detailed instructions on enabling the unified internal cache controllers.</p>
 <h3 id="information-block-flash-memory">Information Block Flash Memory</h3>
 <p>The information block is a separate area of the internal flash memory and is 16,384 Bytes. The information block is used to store trim settings (option configuration and analog trim) and other nonvolatile device-specific information. The information block also contains the device's unique serial number (USN). The USN is a 104-bit field. USN bits 0 thru 7 contain the die revision.</p>
-<p>Figure 3-5: Unique Serial Number Format
+<p><em>Figure 3-5: Unique Serial Number Format</em>
 <a name="unique-serial-number-format"></a></p>
 <table border="1" cellpadding="5" cellspacing="0">
    <tr>
@@ -1262,6 +1268,10 @@ The MAX78000 CM4's data memory mapping is illustrated in Figure 3-1. The MAX7800
     
     
       <script src="../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   </body>

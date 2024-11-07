@@ -17,9 +17,9 @@ The flash is organized as an array of 2,048 words by 128 bits, or 8,192 bytes pe
 *Table 7-1: MAX78000 Internal Flash Memory Organization*
 <a name="internal-flash-memory-organization"></a>
 
-<table>
+<table border="1" cellpadding="5" cellspacing="0">
   <thead>
-    <tr>
+    <tr style="background-color: #e0e0e0; font-weight: bold; text-align: center">
       <th>Instance</th>
       <th>Page Number</th>
       <th>Size (per page)</th>
@@ -88,8 +88,6 @@ The FLC requires a 1MHz internal clock. See Oscillator Sources for details. Use 
 
 *Equation 7-1: FLC Clock Frequency*
 <a name="flc-clock-frequency"></a>
-
-f<sub>FLCn_CLK</sub> = f<sub>SYS_CLK</sub> / FLCn_CLKDIV.*clkdiv* = 1MHz
 
 $$
 f_{\text{FLCn\_CLK}} = \frac{f_{\text{SYS\_CLK}}}{\text{FLCn\_CLKDIV} \cdot \text{clkdiv}} = 1 \, \text{MHz}
@@ -201,9 +199,13 @@ Writes to a flash address are only successful if the target address is already i
 
 6. Set the [FLC_CTRL](#flash-controller-clock-register).*unlock* field to 2 to unlock the flash.
 7. Set the [FLC_CTRL](#flash-controller-clock-register).*wr* field to 1.
+    
     a. The hardware automatically clears this field when the write operation is complete.
+
 8. The [FLC_INTR](#flash-controller-interrupt-register).*done* field is set to 1 by hardware when the write completes.
+   
     a. An interrupt is generated if the [FLC_INTR](#flash-controller-interrupt-register).*doneie* field is set to 1.
+
 9. If an error occurred, the [FLC_INTR](#flash-controller-interrupt-register).*af* field is set to 1 by hardware. An interrupt is generated if the FLC_INTR.*afie* field is set to 1.
 10. Set the [FLC_CTRL](#flash-controller-clock-register).*unlock* field to any value other than 2 to re-lock the flash.
 

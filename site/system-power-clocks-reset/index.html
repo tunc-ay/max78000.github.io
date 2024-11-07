@@ -8,7 +8,7 @@
       
       
       
-        <link rel="canonical" href="https://github.com/tunc-ay/max78000.github.io/system-power-clocks-reset/">
+        <link rel="canonical" href="https://tunc-ay.github.io/max78000.github.io/system-power-clocks-reset/">
       
       
         <link rel="prev" href="../memory-register-mapping-access/">
@@ -800,6 +800,54 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Single Inductor Multiple Output Power Supply (SIMO)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#power-supply-monitor" class="md-nav__link">
+    <span class="md-ellipsis">
+      Power Supply Monitor
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#single-inductor-multiple-output-simo-registers-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      Single Inductor Multiple Output (SIMO) Registers Details
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#low-power-general-control-registers-lpgcr" class="md-nav__link">
+    <span class="md-ellipsis">
+      Low-Power General Control Registers (LPGCR)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Low-Power General Control Registers (LPGCR)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#low-power-general-control-registers-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      Low-Power General Control Registers Details
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -1339,6 +1387,54 @@
       Single Inductor Multiple Output Power Supply (SIMO)
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Single Inductor Multiple Output Power Supply (SIMO)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#power-supply-monitor" class="md-nav__link">
+    <span class="md-ellipsis">
+      Power Supply Monitor
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#single-inductor-multiple-output-simo-registers-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      Single Inductor Multiple Output (SIMO) Registers Details
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#low-power-general-control-registers-lpgcr" class="md-nav__link">
+    <span class="md-ellipsis">
+      Low-Power General Control Registers (LPGCR)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Low-Power General Control Registers (LPGCR)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#low-power-general-control-registers-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      Low-Power General Control Registers Details
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2543,6 +2639,835 @@ If this bit is set to 0, the value loaded into the MCR_IPO_MTRIM.mtrim field mus
 </table>
 
 <h2 id="single-inductor-multiple-output-power-supply-simo">Single Inductor Multiple Output Power Supply (SIMO)</h2>
+<p>The SIMO switch mode power supply allows the device to operate autonomously from a single lithium cell. The SIMO provides three buck switching regulators (VREGO_A thru VREGO_C). Each of the three regulator voltages can be controlled by either CPU individually. For the SIMO to operate properly, the three buck regulator outputs must drive the power supply pins of the device, as shown in Table 4-18.</p>
+<h3 id="power-supply-monitor">Power Supply Monitor</h3>
+<p>The system also provides a power monitor that monitors the external power supplies relative to the on-chip bandgap voltage. The following power supplies are monitored:</p>
+<ul>
+<li>VCOREA (V<sub>COREA</sub>) Digital Core Supply Voltage A for the AoD</li>
+<li>VCOREB (V<sub>COREB</sub>) Digital Core Supply Voltage B</li>
+<li>VDDIO (V<sub>DDIO</sub>) GPIO Supply Voltage</li>
+<li>VDDIOH (V<sub>DDIOH</sub>) GPIO High Supply Voltage</li>
+<li>VDDA (V<sub>DDA</sub>) AoD Analog Supply Voltage</li>
+<li>VREGI (V<sub>REGI</sub>) Input Supply Voltage, Battery</li>
+</ul>
+<p>If the voltage drops below the trigger threshold, all registers and peripherals in that power domain are reset. This improves reliability and safety by guarding against a low voltage condition corrupting the contents of the registers and the device state.</p>
+<p>Refer to the device data sheet electrical characteristics for the trigger threshold values and power fail reset voltages.</p>
+<p><em>Table 4-18: SIMO Power Supply Device Pin Connectivity</em>
+<a name="table4-18-simo-power-supply-device-pin-connectivity"></a></p>
+<table border="1" cellpadding="5" cellspacing="0">
+<tr style="background-color: #e0e0e0; font-weight: bold; text-align: center">
+  <td>SIMO Supply Output Pin</td>
+  <td>Connection</td>
+  <td>Device Power Supply Input Pin</td>
+  <td>Supply Monitor Reset Action</td>
+</tr>
+<tr>
+  <td>V<sub>REGO_A</sub></td>
+  <td>--></td>
+  <td>V<sub>DDA</sub></td>
+  <td>POR</td>
+</tr>
+<tr>
+  <td>V<sub>REGO_B</sub></td>
+  <td>--></td>
+  <td>V<sub>COREB</sub></td>
+  <td>POR</td>
+</tr>
+<tr>
+  <td>V<sub>REGO_C</sub></td>
+  <td>--></td>
+  <td>V<sub>COREA</sub></td>
+  <td>POR</td>
+</tr>
+<tr>
+  <td>-</sub></td>
+  <td>-</td>
+  <td>V<sub>REGI</sub></td>
+  <td>POR</td>
+</tr>
+<tr>
+  <td>-</sub></td>
+  <td>-</td>
+  <td>V<sub>DDIO</sub> Power On</td>
+  <td>GPIO pad held in reset until the voltage rises above its threshold</td>
+</tr>
+<tr>
+  <td>-</sub></td>
+  <td>-</td>
+  <td>V<sub>DDIOH</sub> Power On</td>
+  <td>GPIO pad held in reset until the voltage rises above its threshold</td>
+</tr>
+<tr>
+  <td>-</sub></td>
+  <td>-</td>
+  <td>V<sub>DDIO</sub></td>
+  <td>GPIO pad logic enters POR</td>
+</tr>
+<tr>
+  <td>-</sub></td>
+  <td>-</td>
+  <td>V<sub>DDIOH</sub></td>
+  <td>GPIO pad logic enters POR</td>
+</tr>
+</table>
+
+<p>See <a href="">Table 3-3</a> for the SIMO Controller Peripheral Base Address.</p>
+<p><em>Table 4-19: SIMO Controller Register Summary</em>
+<a name="table4-19-simo-controller-register-summary"></a></p>
+<table border="1" cellpadding="5" cellspacing="0">
+  <tr style="background-color: #e0e0e0; font-weight: bold; text-align: center">
+    <th>Offset</th>
+    <th>Register Name</th>
+    <th>Access</th>
+    <th>Name</th>
+  </tr>
+  <tr>
+    <td>[0x0004]</td>
+    <td><a href="#buck-voltage-regulator-a-control-register">SIMO_VREGO_A</td>
+    <td>R/W</td>
+    <td>Buck Voltage Regulator A Control Register</td>
+  </tr>
+  <tr>
+    <td>[0x0008]</td>
+    <td><a href="#buck-voltage-regulator-b-control-register">SIMO_VREGO_B</td>
+    <td>R/W</td>
+    <td>Buck Voltage Regulator B Control Register</td>
+  </tr>
+  <tr>
+    <td>[0x000C]</td>
+    <td><a href="#buck-voltage-regulator-c-control-register">SIMO_VREGO_C</td>
+    <td>R/W</td>
+    <td>Buck Voltage Regulator C Control Register</td>
+  </tr>
+    <tr>
+    <td>[0x0014]</td>
+    <td><a href="#simo-ipka">SIMO_IPKA</td>
+    <td>RO</td>
+    <td>Reserved. Do not modify this register.</td>
+  </tr>
+    <tr>
+    <td>[0x0018]</td>
+    <td><a href="#simo-ipkb">SIMO_IPKB</td>
+    <td>RO</td>
+    <td>Reserved. Do not modify this register.</td>
+  </tr>
+<tr>
+    <td>[0x001C]</td>
+    <td><a href="#simo-maxton">SIMO_MAXTON</td>
+    <td>RO</td>
+    <td>Reserved. Do not modify this register.</td>
+</tr>
+<tr>
+    <td>[0x0020]</td>
+    <td><a href="#simo-iload-a">SIMO_ILOAD_A</td>
+    <td>RO</td>
+    <td>Reserved. Do not modify this register.</td>
+</tr>
+<tr>
+    <td>[0x0024]</td>
+    <td><a href="#simo-iload-b">SIMO_ILOAD_B</td>
+    <td>RO</td>
+    <td>Reserved. Do not modify this register.</td>
+</tr>
+<tr>
+    <td>[0x0028]</td>
+    <td><a href="#simo-iload-c">SIMO_ILOAD_C</td>
+    <td>RO</td>
+    <td>Reserved. Do not modify this register.</td>
+</tr>
+<tr>
+    <td>[0x0030]</td>
+    <td><a href="#simo-buck-alert-thr-a">SIMO_BUCK_ALERT_THR_A</td>
+    <td>RO</td>
+    <td>Reserved. Do not modify this register.</td>
+</tr>
+<tr>
+    <td>[0x0034]</td>
+    <td><a href="#simo-buck-alert-thr-b">SIMO_BUCK_ALERT_THR_B</td>
+    <td>RO</td>
+    <td>Reserved. Do not modify this register.</td>
+</tr>
+<tr>
+    <td>[0x0038]</td>
+    <td><a href="#simo-buck-alert-thr-c">SIMO_BUCK_ALERT_THR_C</td>
+    <td>RO</td>
+    <td>Reserved. Do not modify this register.</td>
+</tr>
+<tr>
+    <td>[0x0040]</td>
+    <td><a href="#simo-buck-out-ready">SIMO_BUCK_OUT_READY</td>
+    <td>RO</td>
+    <td>Buck Regulator Output Ready Register</td>
+</tr>
+<tr>
+    <td>[0x0044]</td>
+    <td><a href="#simo-zero-cross-cal-a">SIMO_ZERO_CROSS_CAL_A</td>
+    <td>RO</td>
+    <td>Reserved. Do not modify this register.</td>
+</tr>
+<tr>
+    <td>[0x0048]</td>
+    <td><a href="#simo-zero-cross-cal-b">SIMO_ZERO_CROSS_CAL_B</td>
+    <td>RO</td>
+    <td>Reserved. Do not modify this register.</td>
+</tr>
+<tr>
+    <td>[0x004C]</td>
+    <td><a href="#simo-zero-cross-cal-c">SIMO_ZERO_CROSS_CAL_C</td>
+    <td>RO</td>
+    <td>Reserved. Do not modify this register.</td>
+</tr>
+</table>
+
+<h3 id="single-inductor-multiple-output-simo-registers-details">Single Inductor Multiple Output (SIMO) Registers Details</h3>
+<p><em>Table 4-20: SIMO Buck Voltage Regulator A Control Register</em>
+<a name="buck-voltage-regulator-a-control-register"></a> <!--This creates a link for the table.--></p>
+<table border="1" cellpadding="5" cellspacing="0">
+  <tr style="background-color: #e0e0e0; font-weight: bold; text-align: center">
+    <td colspan="3">SIMO Buck Voltage Regulator A Control</td>
+    <td colspan="1">SIMO_VREGO_A</td>
+    <td>[0x0004]</td>
+  </tr>
+  <tr>
+    <th>Bits</th>
+    <th>Name</th>
+    <th>Access</th>
+    <th>Reset</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>31:8</td>
+    <td>-</td>
+    <td>RO</td>
+    <td>-</td>
+    <td><strong>Reserved</strong></td>
+  </tr>
+  <tr>
+    <td>7</td>
+    <td>rangea</td>
+    <td>R/W</td>
+    <td>1</td>
+    <td><strong>Regulator Output A Range</strong><br>This field selects the regulator output range for V<sub>REGO_A</sub>.<br> 
+    <div style="margin-left: 20px">
+    <p>0: 0.5V to 1.77V</p>
+    <p>1: 0.6V to 1.87V</p>
+    </div></td>
+  </tr>
+    <tr>
+    <td>6:0</td>
+    <td>vseta</td>
+    <td>R/W</td>
+    <td>0x78h</td>
+    <td><strong>Regulator Output A Voltage</strong><br>Each bit increment in this field represents 10mV allowing output voltage settings from the minimum to the maximum of the <a href="#buck-voltage-regulator-a-control-register">SIMO_VREGO_A</a>.<em>rangea</em> selected.<br> 
+    <div style="margin-left: 20px">
+    <p><a href="#buck-voltage-regulator-a-control-register">SIMO_VREGO_A</a>.<em>rangea</em> = 1: Output Voltage=0.6V + (10mV × vseta)</p>
+    <p><a href="#buck-voltage-regulator-a-control-register">SIMO_VREGO_A</a>.<em>rangea</em> = 0: Output Voltage=0.5V + (10mV × vseta)</p>
+    </div>
+    Default: 0x78 = <a href="#buck-voltage-regulator-a-control-register">SIMO_VREGO_A</a>.<em>rangea</em> = 0, Output Voltage = 1.7V; <a href="#buck-voltage-regulator-a-control-register">SIMO_VREGO_A</a>.<em>rangea</em> = 1, Output Voltage = 1.8V<br>
+    *Warning: When this regulator is connected as shown in <a href="#table4-18-simo-power-supply-device-pin-connectivity">Table 4-18: SIMO Power Supply Device Pin Connectivity</a>, the following apply:*
+   <div style="margin-left: 20px">
+    <p>1. The maximum setting for this regulator must be followed for V<sub>DDA</sub> as indicated in the device data sheet.</p>
+    <p>2. Setting the regulator to a voltage below the power-fail reset voltage for V<sub>DDA</sub> initiates the power monitor reset action.</p>
+    </div>
+    </td>
+  </tr>
+</table>
+
+<p><em>Table 4-21: SIMO Buck Voltage Regulator B Control Register</em>
+<a name="buck-voltage-regulator-b-control-register"></a> <!--This creates a link for the table.--></p>
+<table border="1" cellpadding="5" cellspacing="0">
+  <tr style="background-color: #e0e0e0; font-weight: bold; text-align: center">
+    <td colspan="3">SIMO Buck Voltage Regulator B Control</td>
+    <td colspan="1">SIMO_VREGO_B</td>
+    <td>[0x0008]</td>
+  </tr>
+  <tr>
+    <th>Bits</th>
+    <th>Name</th>
+    <th>Access</th>
+    <th>Reset</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>31:8</td>
+    <td>-</td>
+    <td>RO</td>
+    <td>-</td>
+    <td><strong>Reserved</strong></td>
+  </tr>
+  <tr>
+    <td>7</td>
+    <td>rangeb</td>
+    <td>R/W</td>
+    <td>1</td>
+    <td><strong>Regulator Output B Range</strong><br>This field selects the regulator output range for V<sub>REGO_B</sub>.<br> 
+    <div style="margin-left: 20px">
+    <p>0: 0.5V to 1.77V</p>
+    <p>1: 0.6V to 1.87V</p>
+    </div></td>
+  </tr>
+    <tr>
+    <td>6:0</td>
+    <td>vsetb</td>
+    <td>R/W</td>
+    <td>0x32h</td>
+    <td><strong>Regulator Output Voltage</strong><br>Each bit increment in this field represents 10mV allowing output voltage settings from the minimum to the maximum of the <a href="#buck-voltage-regulator-b-control-register">SIMO_VREGO_B</a>.<em>rangeb</em> selected.<br> 
+    <div style="margin-left: 20px">
+    <p><a href="#buck-voltage-regulator-b-control-register">SIMO_VREGO_B</a>.<em>rangeb</em> = 1: Output Voltage=0.6V + (10mV × vsetb)</p>
+    <p><a href="#buck-voltage-regulator-b-control-register">SIMO_VREGO_B</a>.<em>rangeb</em>> = 0: Output Voltage=0.5V + (10mV × vsetb)</p>
+    </div>
+    Setting this field to 0x7F results in the maximum output voltage per the <a href="#buck-voltage-regulator-b-control-register">SIMO_VREGO_B</a>.<em>rangeb</em> selected (1.77V or 1.87V)<br>
+    Default: 0x32 = <a href="#buck-voltage-regulator-b-control-register">SIMO_VREGO_B</a>.<em>rangeb</em>, Output Voltage = 1.0V; <a href="#buck-voltage-regulator-b-control-register">SIMO_VREGO_B</a>.<em>rangeb</em> = 1, Output Voltage = 1.1V
+    *Warning: When this regulator is connected as shown in <a href="#table4-18-simo-power-supply-device-pin-connectivity">Table 4-18: SIMO Power Supply Device Pin Connectivity</a>, the following apply:*
+   <div style="margin-left: 20px">
+    <p>1. The maximum setting for this regulator must be followed for V<sub>COREB</sub> as indicated in the device data sheet.</p>
+    <p>2. Setting the regulator to a voltage below the power-fail reset voltage for V<sub>COREB</sub> initiates the power monitor reset action.</p>
+    </div>
+    </td>
+  </tr>
+</table>
+
+<p><em>Table 4-22: SIMO Buck Voltage Regulator C Control Register</em>
+<a name="buck-voltage-regulator-c-control-register"></a> <!--This creates a link for the table.--></p>
+<table border="1" cellpadding="5" cellspacing="0">
+  <tr style="background-color: #e0e0e0; font-weight: bold; text-align: center">
+    <td colspan="3">SIMO Buck Voltage Regulator C Control</td>
+    <td colspan="1">SIMO_VREGO_C</td>
+    <td>[0x000C]</td>
+  </tr>
+  <tr>
+    <th>Bits</th>
+    <th>Name</th>
+    <th>Access</th>
+    <th>Reset</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>31:8</td>
+    <td>-</td>
+    <td>RO</td>
+    <td>-</td>
+    <td><strong>Reserved</strong></td>
+  </tr>
+  <tr>
+    <td>7</td>
+    <td>rangec</td>
+    <td>R/W</td>
+    <td>1</td>
+    <td><strong>Regulator Output B Range</strong><br>This field selects the regulator output range for V<sub>REGO_C</sub>.<br> 
+    <div style="margin-left: 20px">
+    <p>0: 0.5V to 1.77V</p>
+    <p>1: 0.6V to 1.87V</p>
+    </div></td>
+  </tr>
+    <tr>
+    <td>6:0</td>
+    <td>vsetc</td>
+    <td>R/W</td>
+    <td>0x32h</td>
+    <td><strong>Regulator Output Voltage</strong><br>Each increment in the register represents 10mV.<br> 
+    <div style="margin-left: 20px">
+    <p><a href="#buck-voltage-regulator-c-control-register">SIMO_VREGO_C</a>.<em>rangec</em> = 1: Output Voltage=0.6V + (10mV × vsetb)</p>
+    <p><a href="#buck-voltage-regulator-c-control-register">SIMO_VREGO_C</a>.<em>rangec</em>> = 0: Output Voltage=0.5V + (10mV × vsetb)</p>
+    </div>
+    Setting this field to 0x7F results in the maximum output voltage per the <a href="#buck-voltage-regulator-c-control-register">SIMO_VREGO_C</a>.<em>rangec</em> selected (1.77V or 1.87V)<br>
+    Default: 0x32 = <a href="#buck-voltage-regulator-c-control-register">SIMO_VREGO_C</a>.<em>rangec</em>, Output Voltage = 1.0V; <a href="#buck-voltage-regulator-c-control-register">SIMO_VREGO_C</a>.<em>rangec</em> = 1, Output Voltage = 1.1V
+    *Warning: When this regulator is connected as shown in <a href="#table4-18-simo-power-supply-device-pin-connectivity">Table 4-18: SIMO Power Supply Device Pin Connectivity</a>, the following apply:*
+   <div style="margin-left: 20px">
+    <p>1. The maximum setting for this regulator must be followed for V<sub>COREC</sub> as indicated in the device data sheet.</p>
+    <p>2. Setting the regulator to a voltage below the power-fail reset voltage for V<sub>COREC</sub> initiates the power monitor reset action.</p>
+    </div>
+    </td>
+  </tr>
+</table>
+
+<p><em>Table 4-23: SIMO High Side FET Peak Current V<sub>REGO_A</sub> V<sub>REGO_B</sub> Register</em>
+<a name="simo-ipka"></a> <!--This creates a link for the table.--></p>
+<table border="1" cellpadding="5" cellspacing="0">
+<tr style="background-color: #e0e0e0; font-weight: bold; text-align: center">
+    <td colspan="3">SIMO High Side FET Peak Current V<sub>REGO_A</sub> V<sub>REGO_B</sub></td>
+    <td colspan="1">SIMO_IPKA</td>
+    <td>[0x0014]</td>
+</tr>
+<tr>
+    <th>Bits</th>
+    <th>Name</th>
+    <th>Access</th>
+    <th>Reset</th>
+    <th>Description</th>
+</tr>
+<tr>
+    <td>31:8</td>
+    <td>-</td>
+    <td>RO</td>
+    <td>-</td>
+    <td><strong>Reserved</strong></td>
+</tr>
+<tr>
+    <td>7:4</td>
+    <td>ipksetb</td>
+    <td>RO</td>
+    <td>8</td>
+    <td><strong>Reserved</strong></td>
+</tr>
+<tr>
+    <td>3:0</td>
+    <td>ipkseta</td>
+    <td>RO</td>
+    <td>8</td>
+    <td><strong>Reserved</strong></td>
+</tr>
+</table>
+
+<p><em>Table 4-24: SIMO High Side FET Peak Current V<sub>REGO_C</sub> Register</em>
+<a name="simo-ipkb"></a> <!--This creates a link for the table.--></p>
+<table border="1" cellpadding="5" cellspacing="0">
+<tr style="background-color: #e0e0e0; font-weight: bold; text-align: center">
+    <td colspan="3">SIMO High Side FET Peak Current V<sub>REGO_C</sub> V<sub>REGO_D</sub></td>
+    <td colspan="1">SIMO_IPKB</td>
+    <td>[0x0018]</td>
+</tr>
+<tr>
+    <th>Bits</th>
+    <th>Name</th>
+    <th>Access</th>
+    <th>Reset</th>
+    <th>Description</th>
+</tr>
+<tr>
+    <td>31:4</td>
+    <td>-</td>
+    <td>RO</td>
+    <td>-</td>
+    <td><strong>Reserved</strong></td>
+</tr>
+<tr>
+    <td>3:0</td>
+    <td>ipksetc</td>
+    <td>RO</td>
+    <td>8</td>
+    <td><strong>Reserved</strong></td>
+</tr>
+</table>
+
+<p><em>Table 4-25: SIMO Maximum High Side FET Time On Register</em>
+<a name="simo-maxton"></a> <!--This creates a link for the table.--></p>
+<table border="1" cellpadding="5" cellspacing="0">
+<tr style="background-color: #e0e0e0; font-weight: bold; text-align: center">
+    <td colspan="3">SIMO Maximum High Side FET On Time</td>
+    <td colspan="1">SIMO_MAXTON</td>
+    <td>[0x001C]</td>
+</tr>
+<tr>
+    <th>Bits</th>
+    <th>Name</th>
+    <th>Access</th>
+    <th>Reset</th>
+    <th>Description</th>
+</tr>
+<tr>
+    <td>31:4</td>
+    <td>-</td>
+    <td>RO</td>
+    <td>0</td>
+    <td><strong>Reserved</strong></td>
+</tr>
+  <tr>
+      <td>3:0</td>
+      <td>tonset</td>
+      <td>RO</td>
+      <td>0x8h</td>
+      <td><strong>Reserved</strong></td>
+  </tr>
+</table>
+
+<p><em>Table 4-26: SIMO Buck Cycle Count VREGO_A Register</em>
+<a name="simo-iload-a"></a> <!--This creates a link for the table.--></p>
+<table border="1" cellpadding="5" cellspacing="0">
+<tr style="background-color: #e0e0e0; font-weight: bold; text-align: center">
+    <td colspan="3">SIMO Buck Cycle Count VREGO_A</td>
+    <td colspan="1">SIMO_ILOAD_A</td>
+    <td>[0x0020]</td>
+</tr>
+<tr>
+    <th>Bits</th>
+    <th>Name</th>
+    <th>Access</th>
+    <th>Reset</th>
+    <th>Description</th>
+</tr>
+<tr>
+    <td>31:8</td>
+    <td>-</td>
+    <td>RO</td>
+    <td>0</td>
+    <td><strong>Reserved</strong></td>
+</tr>
+  <tr>
+      <td>7:0</td>
+      <td>iloada</td>
+      <td>RO</td>
+      <td>0</td>
+      <td><strong>Reserved</strong></td>
+  </tr>
+</table>
+
+<p><em>Table 4-26: SIMO Buck Cycle Count VREGO_B Register</em>
+<a name="simo-iload-b"></a> <!--This creates a link for the table.--></p>
+<table border="1" cellpadding="5" cellspacing="0">
+<tr style="background-color: #e0e0e0; font-weight: bold; text-align: center">
+    <td colspan="3">SIMO Buck Cycle Count VREGO_B</td>
+    <td colspan="1">SIMO_ILOAD_B</td>
+    <td>[0x0024]</td>
+</tr>
+<tr>
+    <th>Bits</th>
+    <th>Name</th>
+    <th>Access</th>
+    <th>Reset</th>
+    <th>Description</th>
+</tr>
+<tr>
+    <td>31:8</td>
+    <td>-</td>
+    <td>RO</td>
+    <td>0</td>
+    <td><strong>Reserved</strong></td>
+</tr>
+  <tr>
+      <td>7:0</td>
+      <td>iloadb</td>
+      <td>RO</td>
+      <td>0</td>
+      <td><strong>Reserved</strong></td>
+  </tr>
+</table>
+
+<p><em>Table 4-28: SIMO Buck Cycle Count VREGO_C Register</em>
+<a name="simo-iload-c"></a> <!--This creates a link for the table.--></p>
+<table border="1" cellpadding="5" cellspacing="0">
+<tr style="background-color: #e0e0e0; font-weight: bold; text-align: center">
+    <td colspan="3">SIMO Buck Cycle Count VREGO_C</td>
+    <td colspan="1">SIMO_ILOAD_C</td>
+    <td>[0x0028]</td>
+</tr>
+<tr>
+    <th>Bits</th>
+    <th>Name</th>
+    <th>Access</th>
+    <th>Reset</th>
+    <th>Description</th>
+</tr>
+<tr>
+    <td>31:8</td>
+    <td>-</td>
+    <td>RO</td>
+    <td>0</td>
+    <td><strong>Reserved</strong></td>
+</tr>
+  <tr>
+      <td>7:0</td>
+      <td>iloadc</td>
+      <td>RO</td>
+      <td>0</td>
+      <td><strong>Reserved</strong></td>
+  </tr>
+</table>
+
+<p><em>Table 4-29: SIMO Buck Cycle Count Alert VREGO_A Register</em>
+<a name="simo-buck-alert-thr-a"></a> <!--This creates a link for the table.--></p>
+<table border="1" cellpadding="5" cellspacing="0">
+<tr style="background-color: #e0e0e0; font-weight: bold; text-align: center">
+    <td colspan="3">SIMO Buck Cycle Count Alert VREGO_A</td>
+    <td colspan="1">SIMO_BUCK_ALERT_THR_A</td>
+    <td>[0x0030]</td>
+</tr>
+<tr>
+    <th>Bits</th>
+    <th>Name</th>
+    <th>Access</th>
+    <th>Reset</th>
+    <th>Description</th>
+</tr>
+<tr>
+    <td>31:8</td>
+    <td>-</td>
+    <td>RO</td>
+    <td>0</td>
+    <td><strong>Reserved</strong></td>
+</tr>
+  <tr>
+      <td>7:0</td>
+      <td>buckthra</td>
+      <td>RO</td>
+      <td>0</td>
+      <td><strong>Reserved</strong></td>
+  </tr>
+</table>
+
+<p><em>Table 4-30: SIMO Buck Cycle Count Alert VREGO_B Register</em>
+<a name="simo-buck-alert-thr-b"></a> <!--This creates a link for the table.--></p>
+<table border="1" cellpadding="5" cellspacing="0">
+<tr style="background-color: #e0e0e0; font-weight: bold; text-align: center">
+    <td colspan="3">SIMO Buck Cycle Count Alert VREGO_B</td>
+    <td colspan="1">SIMO_BUCK_ALERT_THR_B</td>
+    <td>[0x0034]</td>
+</tr>
+<tr>
+    <th>Bits</th>
+    <th>Name</th>
+    <th>Access</th>
+    <th>Reset</th>
+    <th>Description</th>
+</tr>
+<tr>
+    <td>31:8</td>
+    <td>-</td>
+    <td>RO</td>
+    <td>0</td>
+    <td><strong>Reserved</strong></td>
+</tr>
+  <tr>
+      <td>7:0</td>
+      <td>buckthrb</td>
+      <td>RO</td>
+      <td>0</td>
+      <td><strong>Reserved</strong></td>
+  </tr>
+</table>
+
+<p><em>Table 4-30: SIMO Buck Cycle Count Alert VREGO_C Register</em>
+<a name="simo-buck-alert-thr-c"></a> <!--This creates a link for the table.--></p>
+<table border="1" cellpadding="5" cellspacing="0">
+<tr style="background-color: #e0e0e0; font-weight: bold; text-align: center">
+    <td colspan="3">SIMO Buck Cycle Count Alert VREGO_C</td>
+    <td colspan="1">SIMO_BUCK_ALERT_THR_C</td>
+    <td>[0x0038]</td>
+</tr>
+<tr>
+    <th>Bits</th>
+    <th>Name</th>
+    <th>Access</th>
+    <th>Reset</th>
+    <th>Description</th>
+</tr>
+<tr>
+    <td>31:8</td>
+    <td>-</td>
+    <td>RO</td>
+    <td>0</td>
+    <td><strong>Reserved</strong></td>
+</tr>
+  <tr>
+      <td>7:0</td>
+      <td>buckthrc</td>
+      <td>RO</td>
+      <td>0</td>
+      <td><strong>Reserved</strong></td>
+  </tr>
+</table>
+
+<p><em>Table 4-32: SIMO Buck Regulator Output Ready Register</em>
+<a name="simo-buck-out-ready"></a></p>
+<table border="1" cellpadding="5" cellspacing="0">
+  <tr style="background-color: #e0e0e0; font-weight: bold; text-align: center">
+    <td colspan="3">SIMO Buck Regulator Output Ready</td>
+    <td colspan="1">SIMO_BUCK_OUT_READY</td>
+    <td>[0x0040]</td>
+  </tr>
+  <tr>
+    <th>Bits</th>
+    <th>Name</th>
+    <th>Access</th>
+    <th>Reset</th>
+    <th>Description</th>
+  </tr>
+<tr>
+    <td>31:4</td>
+    <td>-</td>
+    <td>RO</td>
+    <td>0</td>
+    <td><strong>Reserved</strong></td>
+</tr>
+<tr>
+    <td>3</td>
+    <td>buckoutrdya</td>
+    <td>RO</td>
+    <td>0</td>
+    <td><strong>V<sub>REGO_A</sub> Output Ready</strong><br>When <a href="#buck-voltage-regulator-a-control-register">SIMO_VREGO_A</a>.<em>vseta</em> changes, this bit is set when the output voltage has reached its regulated value. It is not cleared if the output voltage drops below its set value.<br> 
+    <div style="margin-left: 20px">
+    <p>0: Not ready</p>
+    <p>1: Ready</p>
+    </div>
+    </td>
+</tr>
+<tr>
+    <td>2</td>
+    <td>buckoutrdyb</td>
+    <td>RO</td>
+    <td>0</td>
+    <td><strong>V<sub>REGO_B</sub> Output Ready</strong><br>When <a href="#buck-voltage-regulator-b-control-register">SIMO_VREGO_B</a>.<em>vsetb</em> changes, this bit is set when the output voltage has reached its regulated value. It is not cleared if the output voltage drops below its set value.<br> 
+    <div style="margin-left: 20px">
+    <p>0: Not ready</p>
+    <p>1: Ready</p>
+    </div>
+    </td>
+</tr>
+<tr>
+    <td>1</td>
+    <td>buckoutrdyc</td>
+    <td>R/W</td>
+    <td>0</td>
+    <td><strong>V<sub>REGO_C</sub> Output Ready</strong><br>When <a href="#buck-voltage-regulator-c-control-register">SIMO_VREGO_C</a>.<em>vsetb</em> changes, this bit is set when the output voltage has reached its regulated value. It is not cleared if the output voltage drops below its set value.<br> 
+    <div style="margin-left: 20px">
+    <p>0: Not ready</p>
+    <p>1: Ready</p>
+    </div>
+    </td>
+</tr>
+<tr>
+    <td>0</td>
+    <td>-</td>
+    <td>RO</td>
+    <td>0</td>
+    <td><strong>Reserved</strong></td>
+</tr>
+</table>
+
+<p><em>Table 4-33: SIMO Zero Cross Calibration V<sub>REGO_A</sub> Register</em>
+<a name="simo-zero-cross-cal-a"></a></p>
+<table border="1" cellpadding="5" cellspacing="0">
+  <tr style="background-color: #e0e0e0; font-weight: bold; text-align: center">
+    <td colspan="3">SIMO Zero Cross Calibration V<sub>REGO_A</sub></td>
+    <td colspan="1">SIMO_ZERO_CROSS_CAL_A</td>
+    <td>[0x0044]</td>
+  </tr>
+  <tr>
+    <th>Bits</th>
+    <th>Name</th>
+    <th>Access</th>
+    <th>Reset</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>31:5</td>
+    <td>-</td>
+    <td>RO</td>
+    <td>0</td>
+    <td><strong>Reserved</strong></td>
+  </tr>
+  <tr>
+    <td>4:0</td>
+    <td>zxcala</td>
+    <td>RO</td>
+    <td>0</td>
+    <td><strong>Reserved</strong></td>
+  </tr>
+</table>
+
+<p><em>Table 4-34: SIMO Zero Cross Calibration V<sub>REGO_B</sub> Register</em>
+<a name="simo-zero-cross-cal-b"></a></p>
+<table border="1" cellpadding="5" cellspacing="0">
+  <tr style="background-color: #e0e0e0; font-weight: bold; text-align: center">
+    <td colspan="3">SIMO Zero Cross Calibration V<sub>REGO_B</sub></td>
+    <td colspan="1">SIMO_ZERO_CROSS_CAL_B</td>
+    <td>[0x0048]</td>
+  </tr>
+  <tr>
+    <th>Bits</th>
+    <th>Name</th>
+    <th>Access</th>
+    <th>Reset</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>31:5</td>
+    <td>-</td>
+    <td>RO</td>
+    <td>0</td>
+    <td><strong>Reserved</strong></td>
+  </tr>
+  <tr>
+    <td>4:0</td>
+    <td>zxcalb</td>
+    <td>RO</td>
+    <td>0</td>
+    <td><strong>Reserved</strong></td>
+  </tr>
+</table>
+
+<p><em>Table 4-35: SIMO Zero Cross Calibration V<sub>REGO_B</sub> Register</em>
+<a name="simo-zero-cross-cal-c"></a></p>
+<table border="1" cellpadding="5" cellspacing="0">
+  <tr style="background-color: #e0e0e0; font-weight: bold; text-align: center">
+    <td colspan="3">SIMO Zero Cross Calibration V<sub>REGO_C</sub></td>
+    <td colspan="1">SIMO_ZERO_CROSS_CAL_C</td>
+    <td>[0x004C]</td>
+  </tr>
+  <tr>
+    <th>Bits</th>
+    <th>Name</th>
+    <th>Access</th>
+    <th>Reset</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>31:5</td>
+    <td>-</td>
+    <td>RO</td>
+    <td>0</td>
+    <td><strong>Reserved</strong></td>
+  </tr>
+  <tr>
+    <td>4:0</td>
+    <td>zxcalc</td>
+    <td>RO</td>
+    <td>0</td>
+    <td><strong>Reserved</strong></td>
+  </tr>
+    <tr>
+    <td>4:0</td>
+    <td>zxcald</td>
+    <td>RO</td>
+    <td>0</td>
+    <td><strong>Reserved</strong></td>
+  </tr>
+</table>
+
+<h2 id="low-power-general-control-registers-lpgcr">Low-Power General Control Registers (LPGCR)</h2>
+<p>This set of general control registers provides reset and clock control for the low-power peripherals, including:</p>
+<ul>
+<li>LPUART0 (UART3)</li>
+<li>LPTMR0 (TMR4)</li>
+<li>LPTMR1 (TMR5)</li>
+<li>LPWDT0 (WDT1)</li>
+<li>LPCOMP1, LPCOMP2, and LPCOMP3</li>
+<li>GPIO2</li>
+</ul>
+<p>See <a href="">Table 3-3</a> for the base address of this peripheral/module. See <a href="">Table 1-1</a> for an explanation of the read and write access of each field. Unless specified otherwise, all fields are reset on a system reset, soft reset, POR, and the peripheral-specific resets.</p>
+<p><em>Table 4-36: Low-Power Control Register Summary</em>
+<a name="table4-36-low-power-control-register-summary"></a></p>
+<table border="1" cellpadding="5" cellspacing="0">
+  <tr style="background-color: #e0e0e0; font-weight: bold; text-align: center">
+    <td>Offset</td>
+    <td>Register</td>
+    <td>Name</td>
+  </tr>
+  <tr>
+    <td>[0x0004]</td>
+    <td><a href="#reset-control-register">LPGCR_RST</td>
+    <td>Reset Control Register</td>
+  </tr>
+  <tr>
+    <td>[0x0008]</td>
+    <td><a href="#clock-control-register">LPGCR_PCLKDIS</td>
+    <td>Clock Control Register/td>
+  </tr>
+</table>
+
+<h3 id="low-power-general-control-registers-details">Low-Power General Control Registers Details</h3>
+<p><em>Table4-37: Low-Power General Control Registers Details</em>
+<a name="reset-control-register"></a></p>
 
 
 
@@ -2593,6 +3518,10 @@ If this bit is set to 0, the value loaded into the MCR_IPO_MTRIM.mtrim field mus
     
     
       <script src="../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   </body>

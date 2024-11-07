@@ -4,13 +4,23 @@ The Arm Cortex-M4 architecture defines a standard memory space for unified code 
 
 However, it is important to note that the architectural definition does not require the entire 4GB memory range to be populated with addressable memory instances.
 
+*Figure 3-1: CM4 Code Memory Mapping*
+<a name="figure3-1-cm4-code-memory-mapping"></a>
+
+![Figure 3-1](assets/images/figure3-1.png)
+
+*Figure 3-2: RISC-V IBUS Code Memory Mapping*
+<a name="figure3-2-risc-v-ibus-code-memory-mapping"></a>
+
+![Figure 3-2](assets/images/figure3-2.png)
+
 ## Standard Memory Regions
 Several standard memory regions are defined for the Arm Cortex-M4 (CPU0) and RISC-V (CPU1) architectures; many of these are optional for the system integrator. At a minimum, the MAX78000 must contain some code and data memory for application software, stack, and variable space for CPU0.
 
 ### Code Space
 The code space area of memory is designed to contain the primary memory used for code execution by the device. This memory area is defined from byte address range 0x0000 0000 to 0x1FFF FFFF (0.5GB maximum). The Cortex-M4 core and Arm debugger use two different standard core bus masters to access this memory area. The I-Code AHB bus master is used for instruction decode fetching from code memory, while the D-Code AHB bus master is used for data fetches from code memory. This is arranged so that data fetches avoid interfering with instruction execution. Additionally, the RV32 uses the D-BUS to access code memory in this area and the I-Bus to access data fetches from the code memory.
 
-The MAX78000 code memory mapping is illustrated in Figure 3-1 and Figure 3-2. The code space memory area contains the main internal flash memory, which holds most of the software executed on the device. The internal flash memory is mapped into both code and data space from 0x1000 0000 to 0x1007 FFFF. The main program flash memory is 512KB and consists of 64 logical pages of 8,192 Bytes per page.
+The MAX78000 code memory mapping is illustrated in [Figure 3-1](#figure3-1-cm4-code-memory-mapping) and [Figure 3-2](#figure3-2-risc-v-ibus-code-memory-mapping). The code space memory area contains the main internal flash memory, which holds most of the software executed on the device. The internal flash memory is mapped into both code and data space from 0x1000 0000 to 0x1007 FFFF. The main program flash memory is 512KB and consists of 64 logical pages of 8,192 Bytes per page.
 
 This program memory area must also contain the default system vector table and the initial settings for all system exception handlers and interrupt handlers for the CM4 core. The reset vector for the device is 0x0000 0000 and contains the device ROM code that transfers execution to user code at address 0x1000 0000.
 
@@ -24,7 +34,7 @@ The unified internal cache memory is used to cache data and instructions fetched
 ### Information Block Flash Memory
 The information block is a separate area of the internal flash memory and is 16,384 Bytes. The information block is used to store trim settings (option configuration and analog trim) and other nonvolatile device-specific information. The information block also contains the device's unique serial number (USN). The USN is a 104-bit field. USN bits 0 thru 7 contain the die revision.
 
-Figure 3-5: Unique Serial Number Format
+*Figure 3-5: Unique Serial Number Format*
 <a name="unique-serial-number-format"></a>
 
 <table border="1" cellpadding="5" cellspacing="0">
