@@ -1,6 +1,7 @@
 # Introduction
 
 !!! info Preliminary
+
     The MAX78000 User Guide on this website is **preliminary**. To access the full document, refer to [MAX7800 User Guide](https://www.analog.com/media/en/technical-documentation/user-guides/max78000-user-guide.pdf) 
 
 The MAX78000 is a new breed of low-power microcontrollers built to thrive in the rapidly evolving AI at the edge market. These products include Maxim's proven ultra-low-power MCU IP along with deep neural network AI acceleration.

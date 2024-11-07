@@ -2183,14 +2183,14 @@ See [Table 3-3]() for the base address of this peripheral/module. See [Table 1-1
   </tr>
 </table>
 
-*Table X-X: XXXX Register*
-<a name="xxxx"></a>
+*Table 4-38: Clock Disable Register*
+<a name="table4-38-clock-disable-register"></a>
 
 <table border="1" cellpadding="5" cellspacing="0">
   <tr style="background-color: #e0e0e0; font-weight: bold; text-align: center">
-    <td colspan="3">ICC0 Cache Control</td>
-    <td colspan="1">ICCn_CTRL</td>
-    <td>[0x0100]</td>
+    <td colspan="3">Clock Disable</td>
+    <td colspan="1">LPGCR_PCLKDIS</td>
+    <td>[0x008]</td>
   </tr>
   <tr>
     <th>Bits</th>
@@ -2200,20 +2200,100 @@ See [Table 3-3]() for the base address of this peripheral/module. See [Table 1-1
     <th>Description</th>
   </tr>
   <tr>
-    <td>31:17</td>
+    <td>31:7</td>
     <td>-</td>
-    <td>R/W</td>
-    <td>-</td>
+    <td>RO</td>
+    <td>0</td>
     <td><strong>Reserved</strong></td>
   </tr>
   <tr>
-    <td>16</td>
-    <td>rdy</td>
-    <td>R</td>
-    <td>-</td>
-    <td><strong>Cache Size</strong><br>
-    This field returns the size of the cache RAM in 1KB units.<br>
+    <td>6</td>
+    <td>lpcomp</td>
+    <td>R/W</td>
+    <td>0</td>
+    <td><strong>Low Power Comparators Clock Disable</strong><br>
+    Disabling a clock disables functionality while also saving power. Reads and writes to peripheral registers are disabled. Peripheral register states are retained.<br>
+    <p><em>Note: This field disables clocks to LPCOMP1, LPCOMP2, and LPCOMP3.</em></p>
+    <div style="margin-left: 20px">
+    <p>0: Enabled</p>
+    <p>1: Disabled</p>
+    </div>
     </td>
   </tr>
-
+  <tr>
+    <td>5</td>
+    <td>-</td>
+    <td>RO</td>
+    <td>0</td>
+    <td><strong>Reserved</strong></td>
+  </tr>
+  <tr>
+    <td>4</td>
+    <td>uart3</td>
+    <td>R/W</td>
+    <td>0</td>
+    <td><strong>UART3 (LPUART0) Clock Disable</strong><br>
+    Disabling a clock disables functionality while also saving power. Reads and writes to peripheral registers are disabled. Peripheral register states are retained.<br>
+    <div style="margin-left: 20px">
+    <p>0: Enabled</p>
+    <p>1: Disabled</p>
+    </div>
+    </td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td>tmr5</td>
+    <td>R/W</td>
+    <td>0</td>
+    <td><strong>TMR5 (LPTMR1) Clock Disable</strong><br>
+    Disabling a clock disables functionality while also saving power. Reads and writes to peripheral registers are disabled. Peripheral register states are retained.<br>
+    <div style="margin-left: 20px">
+    <p>0: Enabled</p>
+    <p>1: Disabled</p>
+    </div>
+    </td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>tmr4</td>
+    <td>R/W</td>
+    <td>0</td>
+    <td><strong>TMR4 (LPTMR0) Clock Disable</strong><br>
+    Disabling a clock disables functionality while also saving power. Reads and writes to peripheral registers are disabled. Peripheral register states are retained.<br>
+    <div style="margin-left: 20px">
+    <p>0: Enabled</p>
+    <p>1: Disabled</p>
+    </div>
+    </td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>wdt1</td>
+    <td>R/W</td>
+    <td>0</td>
+    <td><strong>WDT1 (LPWDT0) Clock Disable</strong><br>
+    Disabling a clock disables functionality while also saving power. Reads and writes to peripheral registers are disabled. Peripheral register states are retained.<br>
+    <div style="margin-left: 20px">
+    <p>0: Enabled</p>
+    <p>1: Disabled</p>
+    </div>
+    </td>
+  </tr>
+  <tr>
+    <td>0</td>
+    <td>gpio2</td>
+    <td>R/W</td>
+    <td>0</td>
+    <td><strong>GPIO2 Clock Disable</strong><br>
+    Disabling a clock disables functionality while also saving power. Reads and writes to peripheral registers are disabled. Peripheral register states are retained.<br>
+    <div style="margin-left: 20px">
+    <p>0: Enabled</p>
+    <p>1: Disabled</p>
+    </div>
+    </td>
+  </tr>
 </table>
+
+## Power Sequencer Registers (PWRSEQ)
+
+See [Table 3-3](memory-register-mapping-access.md#apb-peripheral-base-address-map) for the base address of this peripheral/module. See Table 1-1 for an explanation of the read and write access of each field. Unless specified otherwise, all fields are reset on a system reset, soft reset, POR, and the peripheral-specific resets.
